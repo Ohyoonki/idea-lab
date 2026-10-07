@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>아이디어 제작소</title>
+<meta name="description" content="아이디어 제작소에 어서 오세요. 당신의 아이디어를 기획서와 작동하는 시안으로 무료로 만들어, 하나씩 쌓아 갑니다.">
+<link rel="icon" href="assets/favicon.png">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf9f4; --ink:#14141a; --ink-2:#5f636b; --card:#ffffff; --line:#e9e4d8; --line2:#d6d0c2;
+  --yellow:#fdba2d; --accent-text:#a86a00; --tag-bg:rgba(253,186,45,.22);
+  --glass:rgba(20,20,26,.05); --glass-2:rgba(20,20,26,.09); --glass-line:rgba(20,20,26,.08);
+  --glow:rgba(253,186,45,.28); --star:transparent; --shadow:0 14px 34px rgba(60,44,10,.10);
+  --g1:#14141a; --g2:#7a7d85;
+  --sans:"Noto Sans KR","Pretendard","Malgun Gothic",system-ui,sans-serif;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#0a0a0b; --ink:#f4f4f5; --ink-2:#a1a4ab; --card:#141416; --line:#26272b; --line2:#34363b;
+  --accent-text:#fdba2d; --tag-bg:rgba(253,186,45,.15);
+  --glass:rgba(255,255,255,.07); --glass-2:rgba(255,255,255,.10); --glass-line:rgba(255,255,255,.08);
+  --glow:rgba(253,186,45,.10); --star:#fff7; --shadow:none;
+  --g1:#ffffff; --g2:#9ea1a8;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden;background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section[id]{scroll-margin-top:90px}
+
+/* ───────── 상단 ───────── */
+.top{position:absolute;left:0;right:0;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:20px 32px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em}
+.logo img{width:40px;height:40px;border-radius:50%;display:block}
+.menu{display:flex;gap:4px;background:var(--glass);border:1px solid var(--glass-line);border-radius:999px;padding:5px;backdrop-filter:blur(8px)}
+.menu a{padding:8px 20px;border-radius:999px;font-size:13px;font-weight:500;color:var(--ink-2)}
+.menu a:first-child{background:var(--glass-2);color:var(--ink)}
+.menu a:hover{color:var(--ink)}
+.theme{width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-line);background:var(--glass);color:var(--ink);cursor:pointer;display:grid;place-items:center;font-size:19px;line-height:1;transition:transform .15s}
+.theme:hover{transform:rotate(18deg)}
+.theme .sun{display:none}
+:root[data-theme="dark"] .theme .sun{display:block}
+:root[data-theme="dark"] .theme .moon{display:none}
+
+/* ───────── 소개(히어로) ───────── */
+.hero{position:relative;overflow:hidden;min-height:970px;text-align:center;padding-top:150px;
+  background:
+    radial-gradient(60% 40% at 50% 28%, var(--glow), transparent 70%),
+    radial-gradient(2px 2px at 12% 30%, var(--star) 50%, transparent 52%),
+    radial-gradient(2px 2px at 82% 22%, var(--star) 50%, transparent 52%),
+    radial-gradient(1.5px 1.5px at 66% 48%, var(--star) 50%, transparent 52%),
+    radial-gradient(1.5px 1.5px at 28% 55%, var(--star) 50%, transparent 52%),
+    var(--bg)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2)}
+.eyebrow b{color:var(--accent-text);font-weight:700}
+.hero h1{margin-top:18px;font-size:clamp(38px,6.6vw,70px);line-height:1.12;letter-spacing:-.045em;font-weight:500}
+.hero h1 .g{background:linear-gradient(90deg,var(--g1),var(--g2) 60%,var(--g1));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{max-width:520px;margin:20px auto 0;font-size:15px;color:var(--ink-2)}
+.facts{margin-top:22px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
+.facts span{border:1px solid var(--line);border-radius:999px;padding:4px 14px;background:var(--card)}
+.facts b{color:var(--accent-text)}
+
+/* 떠 있는 이름표 */
+.tagf{position:absolute;z-index:3;font-size:12px;font-weight:700;padding:5px 14px;border-radius:8px;color:#fff}
+.tagf::before{content:"";position:absolute;top:-10px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid currentColor;transform:rotate(-20deg)}
+.tagf.t1{left:12%;top:230px;background:#3aa6a0;color:#fff}.tagf.t1::before{right:-6px;border-bottom-color:#3aa6a0}
+.tagf.t2{right:11%;top:310px;background:#ef6a6a}.tagf.t2::before{left:-6px;border-bottom-color:#ef6a6a;transform:rotate(20deg)}
+
+/* 카드 부채꼴 */
+.fan{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:center;align-items:flex-end;pointer-events:none}
+.fan>*{pointer-events:auto}
+.fc{position:relative;flex:0 0 auto;width:230px;height:330px;border-radius:26px;padding:22px 20px;text-align:left;color:#fff;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.28);transition:transform .25s ease}
+.fc h3{font-size:22px;letter-spacing:-.04em;line-height:1.2}
+.fc small{display:block;opacity:.75;font-size:12px;margin-top:3px}
+.fc .ico{position:absolute;right:12px;bottom:46px;font-size:86px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.3));line-height:1}
+.fc.p1{background:linear-gradient(160deg,#7c62e8,#3a2a8f);transform:rotate(-12deg) translateY(36px);margin-right:-34px}
+.fc.p2 h3{font-size:19px}
+.fc.p2{background:linear-gradient(160deg,#ff7b7b,#d34552);transform:rotate(-6deg) translateY(10px);margin-right:-34px;z-index:2}
+.fc.p3{width:290px;height:400px;background:linear-gradient(170deg,#25c3d6,#0a7c95);z-index:3;padding:0}
+.fc.p4{background:linear-gradient(160deg,#78e478,#2aa84a);transform:rotate(6deg) translateY(10px);margin-left:-34px;z-index:2}
+.fc.p5{background:linear-gradient(160deg,#5b6cf0,#2a2f8f);transform:rotate(12deg) translateY(36px);margin-left:-34px}
+.fc:hover{transform:translateY(-8px) rotate(0)}
+.fc.p3:hover{transform:translateY(-8px)}
+.fc.p3 .pic{display:block;width:100%;height:100%;object-fit:cover;object-position:center 28%;opacity:.0}
+.fc.p3 .circ{position:absolute;left:50%;top:44px;transform:translateX(-50%);width:210px;height:210px;border-radius:50%;box-shadow:0 14px 36px rgba(0,0,0,.35)}
+.fc.p3 .tx{position:absolute;left:22px;right:22px;bottom:24px}
+.fc.p3 .tx h3{font-size:24px}
+.fc.p3 .go{position:absolute;right:16px;top:14px;background:#fff;color:#111;border-radius:999px;padding:6px 8px 6px 14px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
+.fc.p3 .go i{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--yellow);font-style:normal}
+.soon-b{display:inline-block;margin-top:10px;background:rgba(0,0,0,.25);border-radius:999px;padding:2px 12px;font-size:12px;font-weight:700}
+
+/* ───────── 목록 ───────── */
+.sec{padding:96px 0 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:26px}
+.label{font-size:13px;color:var(--accent-text);font-weight:700}
+.head h2{font-size:clamp(26px,3.6vw,38px);letter-spacing:-.045em;font-weight:500;margin-top:8px}
+.head .cnt{color:var(--ink-2);font-size:14px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.f{font:inherit;cursor:pointer;border:1px solid var(--line);background:transparent;border-radius:999px;padding:6px 16px;font-size:13px;font-weight:700;color:var(--ink-2)}
+.f.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;min-height:230px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.card:hover,.card:focus-visible{transform:translateY(-4px);border-color:var(--yellow);outline:none}
+.card .no{font-size:12px;color:var(--ink-2);font-weight:700;letter-spacing:.06em}
+.card h3{font-size:23px;letter-spacing:-.04em;margin:10px 0 8px;line-height:1.25}
+.card p{font-size:14px;color:var(--ink-2);flex:1}
+.card .meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:18px}
+.tag{background:var(--tag-bg);color:var(--accent-text);border-radius:999px;padding:2px 12px;font-size:12px;font-weight:700}
+.card .go{margin-left:auto;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--yellow);color:#111;font-weight:800}
+.card .dt{font-size:12px;color:var(--ink-2)}
+.soon{border:1.5px dashed var(--line2);border-radius:24px;display:grid;place-items:center;text-align:center;color:var(--ink-2);font-weight:700;min-height:230px;padding:20px}
+.empty{grid-column:1/-1;border:1.5px dashed var(--line2);border-radius:24px;padding:44px;text-align:center;color:var(--ink-2)}
+
+footer{margin-top:96px;padding:40px 0 calc(44px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:var(--ink-2);font-size:13px}
+
+@media (max-width:1100px){
+  .fc.p1,.fc.p5{display:none}
+}
+@media (max-width:900px){
+  .hero{min-height:930px}
+  .fc.p2{margin-right:-40px}.fc.p4{margin-left:-40px}
+  .tagf{display:none}
+}
+@media (max-width:560px){
+  .top{padding:12px 14px;gap:8px}
+  .menu a{padding:9px 16px;font-size:13px}
+  .logo img{width:38px;height:38px}
+  .wrap{padding:0 16px}
+  .hero .sub{font-size:14px;padding:0 4px}
+  .facts{font-size:12px}
+  .head{flex-direction:column;align-items:flex-start;gap:6px}
+  .f{padding:10px 18px;font-size:13px}
+  .grid{grid-template-columns:1fr}
+  .card{padding:20px;min-height:200px}
+  .card .go{width:40px;height:40px}
+  .sec{padding-top:72px}
+  footer{flex-direction:column;margin-top:72px}
+  .hero{padding-top:104px;min-height:750px}
+  .fan{bottom:24px}
+  .fc.p2 h3,.fc.p2 small,.fc.p4 h3,.fc.p4 small{visibility:hidden}
+  .fc{width:150px;height:240px;padding:16px 14px;border-radius:20px}
+  .fc h3{font-size:17px}
+  .fc .ico{font-size:56px;bottom:36px}
+  .fc.p3{width:210px;height:300px}
+  .fc.p3 .circ{width:150px;height:150px;top:40px}
+  .fc.p3 .tx h3{font-size:19px}
+  .fc.p2{margin-right:-30px}.fc.p4{margin-left:-30px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="top">
+    <a class="logo" href="./"><img src="assets/profile.webp" alt="아이디어 제작소 로고"></a>
+    <nav class="menu"><a href="#top">홈</a><a href="#list">만든 목록</a></nav>
+    <button class="theme" id="themeBtn" type="button" aria-label="화면 모드 바꾸기"><span class="moon">🌙</span><span class="sun">☀️</span></button>
+  </div>
+
+  <div class="wrap">
+    <div class="eyebrow"><b>무료 제작</b> — 아이디어를 형태로</div>
+    <h1>아이디어 제작소에<br><span class="g">어서 오세요</span></h1>
+    <p class="sub">머릿속에만 있던 아이디어를 기획서와 직접 눌러 볼 수 있는 시안으로 만들어 드립니다. 결과는 이곳에 하나씩 쌓입니다.</p>
+    <div class="facts">
+      <span>지금까지 <b id="statCount">0</b>개</span>
+      <span>최근 업데이트 <b id="statLast">-</b></span>
+    </div>
+  </div>
+
+  <span class="tagf t1">기획자</span>
+  <span class="tagf t2">AI</span>
+
+  <div class="fan">
+    <div class="fc p1"><h3>곧 공개</h3><small>다음 아이디어</small><span class="ico">🚧</span></div>
+    <div class="fc p2" id="fanSample"><h3>샘플</h3><small>아이디어 예시</small><span class="ico">🍚</span></div>
+    <a class="fc p3" href="#list" aria-label="만든 아이디어 보기">
+      <span class="go">만든 목록 <i>↗</i></span>
+      <img class="circ" src="assets/profile.webp" alt="">
+      <div class="tx"><h3>아이디어 제작소</h3><small>기획자 + AI가 함께 만듭니다</small></div>
+    </a>
+    <div class="fc p4"><h3>곧 공개</h3><small>다음 아이디어</small><span class="ico">💡</span></div>
+    <div class="fc p5"><h3>곧 공개</h3><small>다음 아이디어</small><span class="ico">✨</span></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <section class="sec" id="list">
+    <div class="head"><div><div class="label">• 만든 목록</div><h2>지금까지 만든 아이디어</h2></div><span class="cnt" id="count"></span></div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+
+  <footer><span>© 아이디어 제작소</span><span>모든 결과물은 시안이며 실제 서비스가 아닙니다.</span></footer>
+</div>
+</main>
+
+<script src="ideas.js"></script>
+<script>
+(function(){var b=document.getElementById('themeBtn');if(!b)return;b.onclick=function(){var r=document.documentElement,n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}};})();
+</script>
+<script>
+(function(){
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  var all=(window.IDEAS||[]).slice().sort(function(a,b){return b.no.localeCompare(a.no);});
+  var grid=document.getElementById('grid'), filters=document.getElementById('filters'), cur='전체';
+
+  document.getElementById('statCount').textContent=all.length;
+  var dates=all.map(function(i){return i.date||'';}).filter(Boolean).sort();
+  document.getElementById('statLast').textContent=dates.length?dates[dates.length-1]:'-';
+
+  /* 히어로 왼쪽 두 번째 카드를 최신 아이디어로 연결 */
+  if(all.length){
+    var l=all[0], el=document.getElementById('fanSample');
+    el.outerHTML='<a class="fc p2" href="ideas/'+encodeURI(l.path)+'/"><h3>'+esc(l.title.length>14?l.title.slice(0,14)+'…':l.title)+'</h3><small>No.'+esc(l.no)+' · 최신</small><span class="ico">🍚</span></a>';
+  }
+
+  var tagSet=[]; all.forEach(function(i){(i.tags||[]).forEach(function(t){if(tagSet.indexOf(t)<0)tagSet.push(t);});});
+  function renderFilters(){
+    if(tagSet.length<2){filters.style.display='none';return;}
+    filters.innerHTML=['전체'].concat(tagSet).map(function(t){return '<button class="f'+(t===cur?' on':'')+'" data-t="'+esc(t)+'">'+esc(t)+'</button>';}).join('');
+    Array.prototype.forEach.call(filters.querySelectorAll('.f'),function(b){b.onclick=function(){cur=b.getAttribute('data-t');renderFilters();renderGrid();};});
+  }
+  function renderGrid(){
+    var list=all.filter(function(i){return cur==='전체'||(i.tags||[]).indexOf(cur)>=0;});
+    document.getElementById('count').textContent='총 '+list.length+'개';
+    if(!all.length){grid.innerHTML='<div class="empty">아직 아이디어가 없어요. 곧 올라옵니다.</div>';return;}
+    grid.innerHTML=list.map(function(i){
+      var tags=(i.tags||[]).map(function(t){return '<span class="tag">'+esc(t)+'</span>';}).join('');
+      return '<a class="card" href="ideas/'+encodeURI(i.path)+'/"><div class="no">No.'+esc(i.no)+'</div><h3>'+esc(i.title)+'</h3><p>'+esc(i.summary)+'</p><div class="meta">'+tags+'<span class="dt">'+esc(i.date||'')+'</span><span class="go">↗</span></div></a>';
+    }).join('')+'<div class="soon">다음 아이디어를<br>만드는 중입니다</div>';
+  }
+  renderFilters(); renderGrid();
+})();
+</script>
+</body>
+</html>
