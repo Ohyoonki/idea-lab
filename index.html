@@ -219,7 +219,7 @@ footer{margin-top:96px;padding:40px 0 calc(44px + env(safe-area-inset-bottom));d
   /* 히어로 왼쪽 두 번째 카드를 최신 아이디어로 연결 */
   if(all.length){
     var l=all[0], el=document.getElementById('fanSample');
-    el.outerHTML='<a class="fc p2" href="ideas/'+encodeURI(l.path)+'/"><h3>'+esc(l.title.length>14?l.title.slice(0,14)+'…':l.title)+'</h3><small>No.'+esc(l.no)+' · 최신</small><span class="ico">🍚</span></a>';
+    el.outerHTML='<a class="fc p2" href="ideas/'+encodeURI(l.path)+'/"><h3>'+esc(l.title.length>14?l.title.slice(0,14)+'…':l.title)+'</h3><small>No.'+esc(l.no)+' · 최신</small><span class="ico">'+esc(l.emoji||'💡')+'</span></a>';
   }
 
   var tagSet=[]; all.forEach(function(i){(i.tags||[]).forEach(function(t){if(tagSet.indexOf(t)<0)tagSet.push(t);});});
