@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>싸우지 않는 여행 코스 · 아이디어 제작소</title>
+<meta name="description" content="친구들이 가고 싶은 곳을 고르면, 모두의 '꼭'을 하나씩 담은 하루 여행 코스를 짜 드려요.">
+<link rel="icon" href="../../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<style>
+:root{
+  --bg:#fbf9f4; --ink:#14141a; --ink-2:#5f636b; --card:#ffffff; --soft:#f3f0e8; --line:#e9e4d8; --line2:#d6d0c2;
+  --yellow:#fdba2d; --accent-text:#a86a00; --glass:rgba(20,20,26,.05); --glass-line:rgba(20,20,26,.08);
+  --shadow:0 14px 34px rgba(60,44,10,.10);
+  --food:#ff8a80; --cafe:#e0b48a; --sight:#6fd0dc; --etc:#b9a6ff;
+  --sans:"Noto Sans KR","Pretendard","Malgun Gothic",system-ui,sans-serif; color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#0a0a0b; --ink:#f4f4f5; --ink-2:#a1a4ab; --card:#141416; --soft:#1c1c1f; --line:#26272b; --line2:#34363b;
+  --accent-text:#fdba2d; --glass:rgba(255,255,255,.07); --glass-line:rgba(255,255,255,.08); --shadow:none; color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+.top{padding:14px 0}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.back{display:inline-flex;align-items:center;gap:8px;font-weight:700;padding:10px 4px}
+.back img{width:34px;height:34px;border-radius:50%}
+.theme{width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-line);background:var(--glass);cursor:pointer;display:grid;place-items:center;font-size:19px;line-height:1}
+.theme .sun{display:none}
+:root[data-theme="dark"] .theme .sun{display:block}
+:root[data-theme="dark"] .theme .moon{display:none}
+.hidden{display:none!important}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:16px;padding:14px 20px;font-weight:800;cursor:pointer;border:1px solid var(--line2);background:var(--card);min-height:52px}
+.btn.main{background:var(--yellow);border-color:var(--yellow);color:#111;font-size:17px}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.btn.sm{min-height:44px;padding:10px 16px;font-size:14px;border-radius:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:active:not(:disabled){transform:translateY(2px)}
+.full{width:100%}
+
+/* 머리 */
+.head{padding:18px 0 22px}
+.no{font-size:13px;font-weight:800;color:var(--accent-text);letter-spacing:.04em}
+h1{font-size:clamp(32px,8vw,48px);line-height:1.14;letter-spacing:-.05em;font-weight:800;margin:10px 0 12px}
+.lead{color:var(--ink-2);font-size:16px}
+.steps{display:flex;gap:6px;margin:22px 0 18px}
+.steps button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px 6px;font-size:13px;font-weight:800;color:var(--ink-2);cursor:pointer}
+.steps button b{display:block;font-size:11px;color:var(--accent-text)}
+.steps button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.steps button.on b{color:var(--yellow)}
+.steps button:disabled{opacity:.5;cursor:not-allowed}
+
+/* 만들기 */
+label.t{display:block;font-weight:800;margin:20px 0 8px}
+label.t:first-child{margin-top:0}
+label.t small{font-weight:600;color:var(--ink-2);font-size:13px;margin-left:6px}
+input[type=text]{width:100%;border:1px solid var(--line2);border-radius:14px;padding:13px 14px;background:var(--bg);font-size:16px;min-width:0}
+input:focus,select:focus{outline:2px solid var(--yellow);outline-offset:1px}
+.addrow{display:flex;gap:8px}
+.addrow .btn{flex:0 0 auto;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--soft);border-radius:999px;padding:6px 8px 6px 14px;font-weight:700;font-size:14px}
+.chip button{width:26px;height:26px;border-radius:50%;border:0;background:var(--line);cursor:pointer;font-size:13px;line-height:1}
+.cats{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.cat{border:1px solid var(--line2);background:var(--card);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:700;cursor:pointer}
+.cat.on{border-color:transparent;color:#111}
+.plist{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.pitem{display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:14px;padding:10px 10px 10px 14px}
+.pitem .n{flex:1;font-weight:700;word-break:break-all}
+.pitem button{width:32px;height:32px;border-radius:50%;border:0;background:var(--line);cursor:pointer}
+.tagc{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800;color:#111;white-space:nowrap}
+.seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;gap:4px}
+.seg button{flex:1;white-space:nowrap;border:0;background:transparent;border-radius:10px;padding:10px 6px;font-weight:800;font-size:14px;cursor:pointer;color:var(--ink-2)}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.ex{margin-top:12px;background:none;border:1px dashed var(--line2);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--ink-2);cursor:pointer;width:100%}
+.err{color:#d34552;font-size:14px;font-weight:700;margin-top:10px;min-height:1em}
+
+/* 투표 */
+.who{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.who button{border:1px solid var(--line2);background:var(--card);border-radius:18px;padding:16px 12px;font-weight:800;cursor:pointer;text-align:left;min-height:64px}
+.who button small{display:block;font-size:12px;color:var(--ink-2);font-weight:700}
+.who button.done{border-color:var(--yellow);background:rgba(253,186,45,.12)}
+.share{margin-top:18px;background:var(--soft);border-radius:18px;padding:16px 18px;font-size:14px}
+.share b{display:block;margin-bottom:4px}
+.share .btn{margin-top:10px}
+.rate{display:flex;flex-direction:column;gap:12px}
+.ritem{border:1px solid var(--line);border-radius:18px;padding:14px;background:var(--card)}
+.ritem .rn{display:flex;align-items:center;gap:8px;font-weight:800;margin-bottom:10px;word-break:break-all}
+.opts3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.opts3 button{border:1px solid var(--line2);background:var(--bg);border-radius:12px;padding:10px 4px;font-size:13px;font-weight:800;cursor:pointer;line-height:1.3;min-height:48px}
+.opts3 button.on[data-r="2"]{background:#ff8a80;border-color:#ff8a80;color:#111}
+.opts3 button.on[data-r="1"]{background:var(--yellow);border-color:var(--yellow);color:#111}
+.opts3 button.on[data-r="0"]{background:var(--line2);border-color:var(--line2)}
+.rhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px}
+.rhead h3{font-size:20px;letter-spacing:-.03em}
+.sticky{position:sticky;bottom:0;padding:12px 0 calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%);margin-top:6px}
+
+/* 결과 */
+.sec-h{font-size:19px;letter-spacing:-.03em;margin:30px 0 12px}
+.sec-h:first-child{margin-top:0}
+.course{position:relative;padding-left:4px}
+.stop{display:grid;grid-template-columns:58px 1fr;gap:12px;position:relative;padding-bottom:16px}
+.stop:last-child{padding-bottom:0}
+.stop .tm{font-weight:900;font-size:15px;padding-top:12px;color:var(--ink-2)}
+.stop .bx{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow)}
+.stop .bx .pn{font-size:18px;font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:8px;flex-wrap:wrap;word-break:break-all}
+.stop .bx .why{font-size:13px;color:var(--ink-2);margin-top:4px}
+.stop::before{content:"";position:absolute;left:66px;top:0;bottom:0;width:0}
+.allgood{display:flex;flex-wrap:wrap;gap:8px}
+.allgood span{background:rgba(253,186,45,.18);border-radius:999px;padding:6px 14px;font-weight:800;font-size:14px}
+.sat{display:flex;flex-direction:column;gap:10px}
+.sat .r{display:grid;grid-template-columns:70px 1fr 46px;gap:10px;align-items:center;font-weight:800;font-size:14px}
+.sat .tr{height:12px;background:var(--line);border-radius:999px;overflow:hidden}
+.sat .tr i{display:block;height:100%;background:var(--yellow);border-radius:999px}
+.sat .pc{text-align:right;color:var(--ink-2);font-size:13px}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th,.tbl td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:center}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl td.sc{font-weight:900}
+.tblwrap{overflow-x:auto}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:26px}
+.acts .main{grid-column:1/-1}
+.disc{font-size:12px;color:var(--ink-2);margin:20px 0 56px;text-align:center;line-height:1.6}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:999px;font-weight:700;font-size:14px;z-index:50;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><a class="back" href="../../index.html"><img src="../../assets/favicon.png" alt="">아이디어 제작소</a><button class="theme" id="themeBtn" type="button" aria-label="화면 모드 바꾸기"><span class="moon">🌙</span><span class="sun">☀️</span></button></div></div>
+
+<main class="wrap">
+  <div class="head">
+    <div class="no">No.002 · 아이디어 제작소</div>
+    <h1>싸우지 않는<br>여행 코스</h1>
+    <p class="lead">각자 가고 싶은 곳을 고르면, <b>모두의 「꼭」을 하나씩</b> 담은 하루 코스를 짜 드려요.</p>
+    <div class="steps" id="steps">
+      <button data-s="make"><b>STEP 1</b>장소 모으기</button>
+      <button data-s="vote"><b>STEP 2</b>각자 투표</button>
+      <button data-s="result"><b>STEP 3</b>코스 보기</button>
+    </div>
+  </div>
+
+  <!-- 1 만들기 -->
+  <section id="make" class="hidden">
+    <div class="panel">
+      <label class="t" for="trip">여행 이름 <small>선택</small></label>
+      <input type="text" id="trip" maxlength="30" placeholder="예: 10월 강릉 당일치기">
+
+      <label class="t" for="memIn">함께 가는 사람 <small>2~6명</small></label>
+      <div class="addrow"><input type="text" id="memIn" maxlength="8" placeholder="이름 또는 별명"><button class="btn sm dark" id="memAdd" type="button">추가</button></div>
+      <div class="chips" id="mems"></div>
+
+      <label class="t" for="plIn">가고 싶은 곳 후보 <small>단톡방에 나온 곳을 모두 적어요</small></label>
+      <div class="addrow"><input type="text" id="plIn" maxlength="20" placeholder="장소 이름"><button class="btn sm dark" id="plAdd" type="button">추가</button></div>
+      <div class="cats" id="cats"></div>
+      <div class="plist" id="places"></div>
+
+      <label class="t">코스 길이</label>
+      <div class="seg" id="len"><button data-l="3">여유 3곳</button><button data-l="5">보통 5곳</button><button data-l="6">알차게 6곳</button></div>
+
+      <button class="ex" id="exBtn" type="button">예시로 채워 보기 (친구 4명 · 장소 9곳)</button>
+      <p class="err" id="mkErr"></p>
+      <button class="btn main full" id="toVote">투표하러 가기</button>
+    </div>
+  </section>
+
+  <!-- 2 투표 -->
+  <section id="vote" class="hidden">
+    <div id="pickWho">
+      <div class="panel">
+        <div class="rhead"><h3>누가 투표할까요?</h3><span class="tagc" style="background:var(--soft);color:var(--ink)" id="voteCnt"></span></div>
+        <div class="who" id="who"></div>
+        <div class="share">
+          <b>📱 친구들이 각자 폰으로 투표하려면</b>
+          투표 링크를 단톡방에 올려 주세요. 투표한 사람이 다음 사람에게 새 링크를 넘기면 투표가 이어서 쌓여요.
+          <button class="btn sm full" id="shareVote" type="button">투표 링크 복사</button>
+        </div>
+      </div>
+      <button class="btn main full" id="toResult" style="margin-top:14px">코스 보기</button>
+      <p class="err" id="vtErr"></p>
+    </div>
+    <div id="rating" class="hidden">
+      <div class="rhead"><h3 id="rateTitle"></h3><button class="btn sm" id="rateBack" type="button">← 뒤로</button></div>
+      <div class="rate" id="rateList"></div>
+      <div class="sticky"><button class="btn main full" id="rateDone">투표 완료</button></div>
+    </div>
+    <div id="afterVote" class="hidden">
+      <div class="panel" style="text-align:center">
+        <div style="font-size:44px">🙌</div>
+        <h3 style="font-size:21px;margin:6px 0 6px" id="afterTitle"></h3>
+        <p style="color:var(--ink-2);font-size:15px">같은 폰으로 이어서 하거나, 링크를 다음 사람에게 넘겨 주세요.</p>
+        <div style="display:grid;gap:10px;margin-top:18px">
+          <button class="btn main" id="nextLink">다음 사람에게 링크 넘기기 (복사)</button>
+          <button class="btn" id="nextHere">이 폰으로 다음 사람 투표</button>
+          <button class="btn dark" id="seeCourse">지금까지로 코스 보기</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 결과 -->
+  <section id="result" class="hidden">
+    <h3 class="sec-h" id="resTitle">오늘의 코스</h3>
+    <div class="course" id="course"></div>
+    <h3 class="sec-h">모두 「좋아요」 한 곳</h3>
+    <div class="allgood" id="allgood"></div>
+    <h3 class="sec-h">친구별 만족도</h3>
+    <div class="panel sat" id="sat"></div>
+    <h3 class="sec-h">장소별 투표</h3>
+    <div class="panel tblwrap"><table class="tbl" id="tbl"></table></div>
+    <div class="acts">
+      <button class="btn main" id="copyCourse">단톡방에 코스 보내기 (복사)</button>
+      <button class="btn" id="backVote">투표 고치기</button>
+      <button class="btn dark" id="restart">새 여행 만들기</button>
+    </div>
+    <p class="disc">이동 거리, 영업시간, 예약 여부는 계산하지 않아요. 출발 전에 지도에서 꼭 확인해 주세요.<br>입력한 내용은 이 기기와 공유한 링크 안에만 담기고, 따로 저장·전송되지 않아요.</p>
+  </section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var CATS={sight:{n:'관광',e:'📸',c:'var(--sight)'},food:{n:'맛집',e:'🍜',c:'var(--food)'},cafe:{n:'카페',e:'☕',c:'var(--cafe)'},etc:{n:'기타',e:'✨',c:'var(--etc)'}};
+var RATES=[{n:'상관없어요',p:0},{n:'가면 좋아요',p:1},{n:'꼭 가고 싶어요',p:3}];
+var SLOT_CAT=['sight','food','cafe','sight','food','sight'];
+var SLOT_TIME=['10:00','12:00','14:00','16:00','18:00','20:00'];
+var SLOT_NAME=['오전','점심','오후','늦은 오후','저녁','밤'];
+var KEY='trip-course-v1';
+var EXAMPLE={v:1,t:'친구 넷 당일치기',m:['민지','서준','하은','도윤'],len:5,
+  p:[{n:'바다 전망 카페',c:'cafe'},{n:'시장 칼국수',c:'food'},{n:'해변 산책로',c:'sight'},{n:'수제버거집',c:'food'},{n:'빵집 투어',c:'cafe'},{n:'전망대',c:'sight'},{n:'작은 미술관',c:'sight'},{n:'야시장',c:'food'},{n:'소품숍 골목',c:'etc'}],
+  votes:{}};
+
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('on');},1900);}
+function copy(text,msg){
+  function fb(){var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast(msg);}catch(e){toast('복사에 실패했어요');}document.body.removeChild(t);}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(function(){toast(msg);},fb);else fb();
+}
+function blank(){return {v:1,t:'',m:[],p:[],len:5,votes:{}};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function enc(o){var s=unescape(encodeURIComponent(JSON.stringify(o)));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return JSON.parse(decodeURIComponent(escape(atob(s))));}
+function link(){return location.href.split('#')[0]+'#d='+enc(S);}
+function valid(o){return o&&Array.isArray(o.m)&&Array.isArray(o.p)&&typeof o.votes==='object';}
+function voters(){return S.m.filter(function(m){return Array.isArray(S.votes[m]);});}
+
+/* 상태 불러오기: 링크 > 이 기기 저장 > 새로 */
+var S=null, fromLink=false;
+if(location.hash.indexOf('#d=')===0){try{var o=dec(location.hash.slice(3));if(valid(o)){S=o;fromLink=true;}}catch(e){}}
+if(!S){try{var o2=JSON.parse(localStorage.getItem(KEY));if(valid(o2))S=o2;}catch(e){}}
+if(!S)S=blank();
+
+$('themeBtn').onclick=function(){var r=document.documentElement,n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}};
+
+/* 화면 전환 */
+var cur='make';
+function go(s){
+  cur=s;['make','vote','result'].forEach(function(id){$(id).classList.toggle('hidden',id!==s);});
+  Array.prototype.forEach.call($('steps').children,function(b){b.classList.toggle('on',b.getAttribute('data-s')===s);});
+  stepsState();
+  if(s==='make')renderMake(); if(s==='vote')showWho(); if(s==='result')renderResult();
+  window.scrollTo(0,0);
+}
+function ready(){return S.m.length>=2&&S.p.length>=2;}
+function stepsState(){
+  var b=$('steps').children; b[1].disabled=!ready(); b[2].disabled=!ready()||voters().length<1;
+}
+Array.prototype.forEach.call($('steps').children,function(b){b.onclick=function(){go(b.getAttribute('data-s'));};});
+
+/* ───── 1 만들기 ───── */
+var pickCat='sight';
+function votesReset(why){
+  if(voters().length&&!confirm(why+' 지금까지의 투표가 초기화돼요. 계속할까요?'))return false;
+  S.votes={};return true;
+}
+function renderMake(){
+  $('trip').value=S.t||'';
+  $('mems').innerHTML=S.m.map(function(m,i){return '<span class="chip">'+esc(m)+'<button type="button" data-i="'+i+'" aria-label="'+esc(m)+' 빼기">✕</button></span>';}).join('');
+  Array.prototype.forEach.call($('mems').querySelectorAll('button'),function(b){b.onclick=function(){if(!votesReset('사람을 빼면'))return;S.m.splice(+b.getAttribute('data-i'),1);save();renderMake();stepsState();};});
+  $('cats').innerHTML=Object.keys(CATS).map(function(k){var c=CATS[k];return '<button type="button" class="cat'+(k===pickCat?' on':'')+'" data-k="'+k+'" style="'+(k===pickCat?'background:'+c.c:'')+'">'+c.e+' '+c.n+'</button>';}).join('');
+  Array.prototype.forEach.call($('cats').children,function(b){b.onclick=function(){pickCat=b.getAttribute('data-k');renderMake();$('plIn').focus();};});
+  $('places').innerHTML=S.p.map(function(p,i){var c=CATS[p.c]||CATS.etc;return '<div class="pitem"><span class="tagc" style="background:'+c.c+'">'+c.e+' '+c.n+'</span><span class="n">'+esc(p.n)+'</span><button type="button" data-i="'+i+'" aria-label="'+esc(p.n)+' 빼기">✕</button></div>';}).join('');
+  Array.prototype.forEach.call($('places').querySelectorAll('button'),function(b){b.onclick=function(){if(!votesReset('장소를 빼면'))return;S.p.splice(+b.getAttribute('data-i'),1);save();renderMake();stepsState();};});
+  Array.prototype.forEach.call($('len').children,function(b){b.classList.toggle('on',+b.getAttribute('data-l')===S.len);});
+}
+$('trip').addEventListener('input',function(){S.t=this.value.trim();save();});
+function addMem(){
+  var v=$('memIn').value.trim(); $('mkErr').textContent='';
+  if(!v)return; if(S.m.length>=6){$('mkErr').textContent='최대 6명까지 넣을 수 있어요.';return;}
+  if(S.m.indexOf(v)>=0){$('mkErr').textContent='같은 이름이 이미 있어요.';return;}
+  S.m.push(v);$('memIn').value='';save();renderMake();stepsState();$('memIn').focus();
+}
+function addPlace(){
+  var v=$('plIn').value.trim(); $('mkErr').textContent='';
+  if(!v)return; if(S.p.length>=15){$('mkErr').textContent='장소는 15곳까지 넣을 수 있어요.';return;}
+  if(S.p.some(function(p){return p.n===v;})){$('mkErr').textContent='같은 장소가 이미 있어요.';return;}
+  if(voters().length){ if(!confirm('장소를 추가하면 이미 투표한 사람은 새 장소를 「상관없어요」로 처리해요. 계속할까요?'))return; voters().forEach(function(m){S.votes[m].push(0);}); }
+  S.p.push({n:v,c:pickCat});$('plIn').value='';save();renderMake();stepsState();$('plIn').focus();
+}
+$('memAdd').onclick=addMem; $('plAdd').onclick=addPlace;
+$('memIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.isComposing){e.preventDefault();addMem();}});
+$('plIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.isComposing){e.preventDefault();addPlace();}});
+Array.prototype.forEach.call($('len').children,function(b){b.onclick=function(){S.len=+b.getAttribute('data-l');save();renderMake();};});
+$('exBtn').onclick=function(){
+  if((S.m.length||S.p.length)&&!confirm('지금 입력한 내용을 예시로 바꿀까요?'))return;
+  S=JSON.parse(JSON.stringify(EXAMPLE));save();renderMake();stepsState();toast('예시를 채웠어요');
+};
+$('toVote').onclick=function(){
+  if(S.m.length<2){$('mkErr').textContent='함께 가는 사람을 2명 이상 넣어 주세요.';return;}
+  if(S.p.length<2){$('mkErr').textContent='장소를 2곳 이상 넣어 주세요.';return;}
+  go('vote');
+};
+
+/* ───── 2 투표 ───── */
+var who=null, draft=[];
+function showWho(){
+  ['pickWho','rating','afterVote'].forEach(function(id){$(id).classList.toggle('hidden',id!=='pickWho');});
+  var vs=voters();
+  $('voteCnt').textContent=vs.length+' / '+S.m.length+'명 완료';
+  $('who').innerHTML=S.m.map(function(m){var d=vs.indexOf(m)>=0;return '<button type="button" class="'+(d?'done':'')+'" data-m="'+esc(m)+'">'+esc(m)+'<small>'+(d?'✓ 투표 완료 · 다시 하기':'아직 안 했어요')+'</small></button>';}).join('');
+  Array.prototype.forEach.call($('who').children,function(b){b.onclick=function(){startRate(b.getAttribute('data-m'));};});
+  $('toResult').disabled=vs.length<1; $('vtErr').textContent=vs.length<1?'한 명 이상 투표하면 코스를 볼 수 있어요.':'';
+}
+function startRate(m){
+  who=m; draft=(S.votes[m]||S.p.map(function(){return -1;})).slice();
+  ['pickWho','rating','afterVote'].forEach(function(id){$(id).classList.toggle('hidden',id!=='rating');});
+  $('rateTitle').textContent=m+'님은 어디 가고 싶어요?';
+  renderRate(); window.scrollTo(0,0);
+}
+function renderRate(){
+  $('rateList').innerHTML=S.p.map(function(p,i){var c=CATS[p.c]||CATS.etc;return '<div class="ritem"><div class="rn"><span class="tagc" style="background:'+c.c+'">'+c.e+' '+c.n+'</span>'+esc(p.n)+'</div><div class="opts3">'+[2,1,0].map(function(r){return '<button type="button" data-i="'+i+'" data-r="'+r+'" class="'+(draft[i]===r?'on':'')+'">'+RATES[r].n+'</button>';}).join('')+'</div></div>';}).join('');
+  Array.prototype.forEach.call($('rateList').querySelectorAll('button'),function(b){b.onclick=function(){var i=+b.getAttribute('data-i'),r=+b.getAttribute('data-r');draft[i]=r;Array.prototype.forEach.call(b.parentNode.children,function(x){x.classList.toggle('on',x===b);});};});
+}
+$('rateBack').onclick=showWho;
+$('rateDone').onclick=function(){
+  var empty=draft.filter(function(r){return r<0;}).length;
+  if(empty&&!confirm('고르지 않은 '+empty+'곳은 「상관없어요」로 할게요. 괜찮을까요?'))return;
+  S.votes[who]=draft.map(function(r){return r<0?0:r;}); save();
+  var left=S.m.filter(function(m){return !Array.isArray(S.votes[m]);});
+  $('afterTitle').textContent=who+'님 투표 완료!'+(left.length?' 남은 사람: '+left.join(', '):' 모두 투표했어요');
+  ['pickWho','rating','afterVote'].forEach(function(id){$(id).classList.toggle('hidden',id!=='afterVote');});
+  $('nextLink').classList.toggle('hidden',!left.length); $('nextHere').classList.toggle('hidden',!left.length);
+  $('seeCourse').textContent=left.length?'지금까지로 코스 보기':'코스 보기';
+  stepsState(); window.scrollTo(0,0);
+};
+$('nextLink').onclick=function(){copy(link(),'링크를 복사했어요. 단톡방에 붙여 넣어 주세요');};
+$('nextHere').onclick=showWho;
+$('seeCourse').onclick=function(){go('result');};
+$('shareVote').onclick=function(){copy(link(),'투표 링크를 복사했어요');};
+$('toResult').onclick=function(){go('result');};
+
+/* ───── 3 코스 계산 ───── */
+function plan(){
+  var vs=voters();
+  var P=S.p.map(function(p,i){return {i:i,n:p.n,c:CATS[p.c]?p.c:'etc',score:0,must:[],like:[]};});
+  vs.forEach(function(m){S.votes[m].forEach(function(r,i){if(!P[i])return;P[i].score+=RATES[r].p;if(r===2)P[i].must.push(m);if(r>=1)P[i].like.push(m);});});
+  var N=Math.min(S.len,P.length);
+  var sorted=P.slice().sort(function(a,b){return b.score-a.score||b.must.length-a.must.length||a.i-b.i;});
+  var chosen=[], pickedFor={};
+  // ① 모두의 「꼭」 하나씩: 꼭이 가장 적게 반영된 사람부터
+  vs.slice().sort(function(a,b){return countMust(a)-countMust(b);}).forEach(function(m){
+    if(chosen.length>=N)return;
+    var mine=sorted.filter(function(p){return p.must.indexOf(m)>=0;});
+    if(!mine.length)return;
+    if(mine.some(function(p){return chosen.indexOf(p)>=0;})){pickedFor[m]=true;return;}
+    chosen.push(mine[0]); pickedFor[m]=true;
+  });
+  // ② 남은 자리는 점수 순
+  sorted.forEach(function(p){if(chosen.length<N&&chosen.indexOf(p)<0&&p.score>0)chosen.push(p);});
+  sorted.forEach(function(p){if(chosen.length<N&&chosen.indexOf(p)<0)chosen.push(p);});
+  // ③ 시간대에 배치
+  var slots=SLOT_CAT.slice(0,N).map(function(c,k){return {k:k,c:c,p:null};}), pool=chosen.slice().sort(function(a,b){return b.score-a.score;});
+  slots.forEach(function(s){var j=-1;for(var x=0;x<pool.length;x++){if(pool[x].c===s.c){j=x;break;}} if(j>=0){s.p=pool.splice(j,1)[0];}});
+  slots.forEach(function(s){if(!s.p&&pool.length){var j=0;for(var x=0;x<pool.length;x++){if(pool[x].c==='etc'){j=x;break;}} s.p=pool.splice(j,1)[0];}});
+  var course=slots.filter(function(s){return s.p;});
+  // 만족도
+  var sat=vs.map(function(m){var rs=S.votes[m];var got=course.reduce(function(t,s){return t+RATES[rs[s.p.i]].p;},0);var best=rs.map(function(r){return RATES[r].p;}).sort(function(a,b){return b-a;}).slice(0,course.length).reduce(function(t,x){return t+x;},0);return {m:m,pct:best?Math.round(got/best*100):100};});
+  var allg=vs.length?P.filter(function(p){return p.like.length===vs.length;}):[];
+  return {vs:vs,P:P,course:course,sat:sat,allg:allg};
+  function countMust(m){return S.votes[m].filter(function(r){return r===2;}).length;}
+}
+var LAST=null;
+function renderResult(){
+  var r=LAST=plan();
+  $('resTitle').textContent=(S.t?S.t+' · ':'')+'오늘의 코스';
+  $('course').innerHTML=r.course.map(function(s){var p=s.p,c=CATS[p.c];var why=p.must.length?'꼭: '+p.must.join(', '):(p.like.length?'좋아요: '+p.like.join(', '):'남는 시간에 들러 보기');return '<div class="stop"><div class="tm">'+SLOT_TIME[s.k]+'<br><small style="font-weight:700;font-size:12px">'+SLOT_NAME[s.k]+'</small></div><div class="bx"><div class="pn"><span class="tagc" style="background:'+c.c+'">'+c.e+' '+c.n+'</span>'+esc(p.n)+'</div><div class="why">'+esc(why)+'</div></div></div>';}).join('');
+  $('allgood').innerHTML=r.allg.length?r.allg.map(function(p){return '<span>'+CATS[p.c].e+' '+esc(p.n)+'</span>';}).join(''):'<span style="background:var(--soft)">아직 모두가 좋아한 곳은 없어요</span>';
+  $('sat').innerHTML=r.sat.map(function(x){return '<div class="r"><span>'+esc(x.m)+'</span><span class="tr"><i style="width:'+Math.max(4,x.pct)+'%"></i></span><span class="pc">'+x.pct+'%</span></div>';}).join('')+(r.vs.length<S.m.length?'<p style="font-size:13px;color:var(--ink-2)">아직 투표하지 않은 사람: '+esc(S.m.filter(function(m){return r.vs.indexOf(m)<0;}).join(', '))+'</p>':'');
+  var inCourse=r.course.map(function(s){return s.p.i;});
+  $('tbl').innerHTML='<tr><th>장소</th>'+r.vs.map(function(m){return '<th>'+esc(m)+'</th>';}).join('')+'<th>점수</th></tr>'+r.P.slice().sort(function(a,b){return b.score-a.score;}).map(function(p){return '<tr><td>'+(inCourse.indexOf(p.i)>=0?'✅ ':'')+esc(p.n)+'</td>'+r.vs.map(function(m){var v=S.votes[m][p.i];return '<td>'+(v===2?'❤️':v===1?'👍':'·')+'</td>';}).join('')+'<td class="sc">'+p.score+'</td></tr>';}).join('');
+}
+$('copyCourse').onclick=function(){
+  var r=LAST||plan();
+  var L=['[싸우지 않는 여행 코스]'+(S.t?' '+S.t:'')];
+  r.course.forEach(function(s){var p=s.p;L.push(SLOT_TIME[s.k]+' '+CATS[p.c].e+' '+p.n+(p.must.length?' (꼭: '+p.must.join(', ')+')':''));});
+  if(r.allg.length)L.push('','모두 좋아한 곳: '+r.allg.map(function(p){return p.n;}).join(', '));
+  L.push('','만족도: '+r.sat.map(function(x){return x.m+' '+x.pct+'%';}).join(' · '));
+  L.push('','투표 보기·고치기: '+link());
+  copy(L.join('\n'),'코스를 복사했어요. 단톡방에 붙여 넣어 주세요');
+};
+$('backVote').onclick=function(){go('vote');};
+$('restart').onclick=function(){if(!confirm('지금 여행을 지우고 새로 만들까요?'))return;S=blank();save();if(location.hash)history.replaceState(null,'',location.href.split('#')[0]);go('make');};
+
+/* 시작 */
+if(fromLink){save();history.replaceState(null,'',location.href.split('#')[0]);go(ready()?'vote':'make');if(ready())toast('친구가 보낸 투표를 불러왔어요');}
+else go(ready()&&voters().length===S.m.length?'result':(ready()?'vote':'make'));
+})();
+</script>
+</body>
+</html>
