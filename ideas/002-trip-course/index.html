@@ -155,6 +155,29 @@ input:focus{outline:2px solid var(--blue);outline-offset:1px;background:var(--ca
 .acts .main{grid-column:1/-1}
 .disc{font-size:12px;color:var(--ink-2);margin:22px 0 10px;text-align:center;line-height:1.6}
 
+/* 소개 */
+.hero-card{position:relative;padding-top:26px;margin-bottom:16px}
+.hero-card::before,.hero-card::after{content:"";position:absolute;left:10%;right:10%;top:0;height:70px;border-radius:30px;background:var(--blue-2);opacity:.35}
+.hero-card::after{left:5%;right:5%;top:12px;opacity:.65;background:var(--blue)}
+.hero-card .in{position:relative;z-index:1;background:var(--blue);color:#fff;border-radius:32px;padding:26px 24px 28px;box-shadow:var(--shadow-2)}
+.hero-card .avs .av{border-color:var(--blue)}
+.hero-card .q{display:flex;flex-direction:column;gap:8px;margin:16px 0 18px}
+.hero-card .q span{align-self:flex-start;background:rgba(255,255,255,.18);border-radius:18px 18px 18px 6px;padding:9px 14px;font-weight:700;font-size:15px}
+.hero-card b.big{display:block;font-size:30px;line-height:1.2;letter-spacing:-.04em}
+.howto{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.howto div{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:16px 18px;box-shadow:var(--shadow)}
+.howto i{flex:0 0 46px;height:46px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-style:normal;font-weight:900}
+.howto b{display:block;font-size:16px}
+.howto small{display:block;color:var(--ink-2);font-size:13px}
+.introbtns{display:grid;gap:10px}
+.demo{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--blue-soft);border:1px solid var(--blue);border-radius:22px;padding:12px 12px 12px 18px;margin-bottom:16px;font-weight:800;font-size:14px;color:var(--blue)}
+.merge{margin-top:12px;background:var(--soft);border-radius:24px;padding:16px}
+.merge b{display:block;font-size:15px;margin-bottom:4px}
+.merge p{font-size:13px;color:var(--ink-2)}
+.merge textarea{width:100%;min-height:76px;margin-top:10px;border:1px solid var(--line);border-radius:18px;padding:12px 14px;background:var(--card);font:inherit;font-size:14px;color:inherit;resize:vertical}
+.merge textarea:focus{outline:2px solid var(--blue)}
+.merge .btn{margin-top:8px;box-shadow:none}
+
 /* 하단 내비 */
 .steps{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom));z-index:20;display:flex;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px;box-shadow:0 16px 40px rgba(20,30,60,.16)}
 .steps button{display:flex;align-items:center;gap:8px;white-space:nowrap;flex:0 0 auto;height:56px;min-width:56px;padding:0 16px;border-radius:999px;border:0;background:var(--soft);color:var(--ink);cursor:pointer;font-weight:800;font-size:15px;justify-content:center}
@@ -179,6 +202,24 @@ input:focus{outline:2px solid var(--blue);outline-offset:1px;background:var(--ca
     <p class="lead">각자 가고 싶은 곳을 고르면, <b>모두의 「꼭」을 하나씩</b> 담은 하루 코스를 짜 드려요.</p>
     <div class="pills" id="sum"></div>
   </div>
+
+  <!-- 0 소개 -->
+  <section id="intro" class="hidden">
+    <div class="hero-card"><div class="in">
+      <div class="avs"><i class="av" style="background:#f7b3c6">맛</i><i class="av" style="background:#ffc9a3">카</i><i class="av" style="background:#a8e0f0">관</i></div>
+      <div class="q"><span>🍜 칼국수는 무조건!</span><span>☕ 바다 보이는 카페 가자</span><span>📸 전망대는 꼭 가야지</span></div>
+      <b class="big">단톡방에서 싸우지 말고,<br>링크 하나로 정해요</b>
+    </div></div>
+    <div class="introbtns" style="margin-bottom:18px">
+      <button class="btn main" id="startNew">여행 만들기</button>
+      <button class="btn" id="seeDemo">예시로 먼저 보기</button>
+    </div>
+    <div class="howto">
+      <div><i>1</i><span><b>장소 모으기</b><small>단톡방에 나온 후보를 적어요</small></span></div>
+      <div><i>2</i><span><b>각자 투표</b><small>링크로 동시에, 꼭 · 좋아 · 상관없음</small></span></div>
+      <div><i>3</i><span><b>코스 완성</b><small>모두의 「꼭」이 하나씩 들어간 하루 코스</small></span></div>
+    </div>
+  </section>
 
   <!-- 1 만들기 -->
   <section id="make" class="hidden">
@@ -212,8 +253,14 @@ input:focus{outline:2px solid var(--blue);outline-offset:1px;background:var(--ca
         <div class="who" id="who"></div>
         <div class="share">
           <b>📱 친구들이 각자 폰으로 투표하려면</b>
-          투표 링크를 단톡방에 올려 주세요. 투표한 사람이 다음 사람에게 새 링크를 넘기면 투표가 이어서 쌓여요.
+          투표 링크를 단톡방에 올려 주세요. 동시에 투표해도 괜찮아요. 각자 「내 투표 보내기」로 올린 링크를 열면 투표가 합쳐져요.
           <button class="btn sm full" id="shareVote" type="button">투표 링크 복사</button>
+        </div>
+        <div class="merge">
+          <b>🔗 친구들 투표 합치기</b>
+          <p>단톡방에 올라온 링크를 여기에 한꺼번에 붙여 넣어도 돼요.</p>
+          <textarea id="mergeIn" placeholder="링크를 붙여 넣으세요 (여러 개 가능)"></textarea>
+          <button class="btn sm dark full" id="mergeBtn" type="button">투표 합치기</button>
         </div>
       </div>
       <button class="btn main full" id="toResult" style="margin-top:14px">코스 보기</button>
@@ -228,9 +275,9 @@ input:focus{outline:2px solid var(--blue);outline-offset:1px;background:var(--ca
       <div class="panel" style="text-align:center">
         <div style="font-size:44px">🙌</div>
         <h3 style="font-size:21px;margin:6px 0 6px" id="afterTitle"></h3>
-        <p style="color:var(--ink-2);font-size:15px">같은 폰으로 이어서 하거나, 링크를 다음 사람에게 넘겨 주세요.</p>
+        <p style="color:var(--ink-2);font-size:15px">내 투표 링크를 단톡방에 올려 주세요. 링크를 열면 투표가 합쳐져요.</p>
         <div style="display:grid;gap:10px;margin-top:18px">
-          <button class="btn main" id="nextLink">다음 사람에게 링크 넘기기 (복사)</button>
+          <button class="btn main" id="nextLink">내 투표 보내기 (링크 복사)</button>
           <button class="btn" id="nextHere">이 폰으로 다음 사람 투표</button>
           <button class="btn dark" id="seeCourse">지금까지로 코스 보기</button>
         </div>
@@ -240,6 +287,7 @@ input:focus{outline:2px solid var(--blue);outline-offset:1px;background:var(--ca
 
   <!-- 3 결과 -->
   <section id="result" class="hidden">
+    <div class="demo hidden" id="demoBar"><span>👀 지금 보는 건 예시예요</span><button class="btn sm main" id="demoStart" type="button">내 여행 만들기</button></div>
     <h3 class="sec-h" id="resTitle">오늘의 코스</h3>
     <div class="course" id="course"></div>
     <h3 class="sec-h">모두 「좋아요」 한 곳</h3>
@@ -276,6 +324,8 @@ var COLORS=['#f7b3c6','#ffc9a3','#a8e0f0','#c7b8ff','#b9eab0','#ffe08a'];
 var EXAMPLE={v:1,t:'친구 넷 당일치기',m:['민지','서준','하은','도윤'],len:5,
   p:[{n:'바다 전망 카페',c:'cafe'},{n:'시장 칼국수',c:'food'},{n:'해변 산책로',c:'sight'},{n:'수제버거집',c:'food'},{n:'빵집 투어',c:'cafe'},{n:'전망대',c:'sight'},{n:'작은 미술관',c:'sight'},{n:'야시장',c:'food'},{n:'소품숍 골목',c:'etc'}],
   votes:{}};
+var EXAMPLE_VOTES={'민지':[2,0,1,0,2,1,0,1,0],'서준':[0,2,1,2,0,0,0,1,1],'하은':[1,1,1,0,1,2,2,0,1],'도윤':[0,1,2,1,0,1,0,2,0]};
+function newId(){var c='abcdefghijkmnpqrstuvwxyz23456789',x='';for(var i=0;i<8;i++)x+=c[Math.floor(Math.random()*c.length)];return x;}
 
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -284,7 +334,9 @@ function copy(text,msg){
   function fb(){var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast(msg);}catch(e){toast('복사에 실패했어요');}document.body.removeChild(t);}
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(function(){toast(msg);},fb);else fb();
 }
-function blank(){return {v:1,t:'',m:[],p:[],len:5,votes:{}};}
+function blank(){return {v:2,id:newId(),t:'',m:[],p:[],len:5,votes:{},vt:{}};}
+function fix(o){if(!o.id)o.id=newId();if(!o.vt||typeof o.vt!=='object')o.vt={};return o;}
+function isEmpty(o){return !o||(!o.m.length&&!o.p.length);}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 function enc(o){var s=unescape(encodeURIComponent(JSON.stringify(o)));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
 function dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return JSON.parse(decodeURIComponent(escape(atob(s))));}
@@ -295,17 +347,52 @@ function av(m){return '<i class="av" style="background:'+col(m)+'">'+esc(String(
 function voters(){return S.m.filter(function(m){return Array.isArray(S.votes[m]);});}
 
 /* 상태 불러오기: 링크 > 이 기기 저장 > 새로 */
-var S=null, fromLink=false;
-if(location.hash.indexOf('#d=')===0){try{var o=dec(location.hash.slice(3));if(valid(o)){S=o;fromLink=true;}}catch(e){}}
-if(!S){try{var o2=JSON.parse(localStorage.getItem(KEY));if(valid(o2))S=o2;}catch(e){}}
-if(!S)S=blank();
+var S=null, incoming=null, local=null, linkNote='';
+if(location.hash.indexOf('#d=')===0){try{var o=dec(location.hash.slice(3));if(valid(o))incoming=fix(o);}catch(e){}}
+try{var o2=JSON.parse(localStorage.getItem(KEY));if(valid(o2))local=fix(o2);}catch(e){}
+S=local||blank();
+
+/* 같은 여행이면 합치기: 사람·장소는 더하고, 같은 사람의 투표는 나중 것으로 */
+function mergeIn(o){
+  var added=[];
+  (o.m||[]).forEach(function(m){if(S.m.indexOf(m)<0&&S.m.length<6)S.m.push(m);});
+  var map=(o.p||[]).map(function(pp){
+    var i=-1;S.p.forEach(function(x,k){if(x.n===pp.n)i=k;});
+    if(i<0){if(S.p.length>=15)return -1;S.p.push({n:pp.n,c:pp.c});i=S.p.length-1;}
+    return i;
+  });
+  Object.keys(S.votes).forEach(function(m){while(S.votes[m].length<S.p.length)S.votes[m].push(0);});
+  Object.keys(o.votes||{}).forEach(function(m){
+    if(S.m.indexOf(m)<0||!Array.isArray(o.votes[m]))return;
+    var t=(o.vt||{})[m]||0, lt=S.vt[m]||0;
+    if(Array.isArray(S.votes[m])&&lt>=t)return;
+    var arr=S.p.map(function(){return 0;});
+    o.votes[m].forEach(function(r,j){if(map[j]>=0&&(r===0||r===1||r===2))arr[map[j]]=r;});
+    S.votes[m]=arr;S.vt[m]=t;added.push(m);
+  });
+  if(!S.t&&o.t)S.t=o.t;
+  return added;
+}
+function takeIn(o,ask){
+  if(isEmpty(S)||S.demo){S=o;S.demo=false;return {mode:'new'};}
+  if(o.id===S.id){return {mode:'merge',added:mergeIn(o)};}
+  if(!ask||confirm('다른 여행의 링크예요.\n지금 이 폰에 있는 여행 대신 이 여행으로 바꿀까요?')){S=o;S.demo=false;return {mode:'new'};}
+  return {mode:'skip'};
+}
+if(incoming){
+  var res0=takeIn(incoming,true);
+  if(res0.mode==='merge')linkNote=res0.added.length?res0.added.join(', ')+'님 투표를 합쳤어요':'이미 합쳐진 투표예요';
+  else if(res0.mode==='new')linkNote='친구가 보낸 여행을 불러왔어요';
+  save();
+}
 
 $('themeBtn').onclick=function(){var r=document.documentElement,n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}};
 
 /* 화면 전환 */
 var cur='make';
 function go(s){
-  cur=s;['make','vote','result'].forEach(function(id){$(id).classList.toggle('hidden',id!==s);});
+  cur=s;['intro','make','vote','result'].forEach(function(id){$(id).classList.toggle('hidden',id!==s);});
+  $('steps').classList.toggle('hidden',s==='intro'); $('sum').classList.toggle('hidden',s==='intro');
   Array.prototype.forEach.call($('steps').children,function(b){b.classList.toggle('on',b.getAttribute('data-s')===s);});
   stepsState();
   if(s==='make')renderMake(); if(s==='vote')showWho(); if(s==='result')renderResult();
@@ -354,7 +441,7 @@ $('plIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.isCompos
 Array.prototype.forEach.call($('len').children,function(b){b.onclick=function(){S.len=+b.getAttribute('data-l');save();renderMake();};});
 $('exBtn').onclick=function(){
   if((S.m.length||S.p.length)&&!confirm('지금 입력한 내용을 예시로 바꿀까요?'))return;
-  S=JSON.parse(JSON.stringify(EXAMPLE));save();renderMake();stepsState();toast('예시를 채웠어요');
+  S=fix(JSON.parse(JSON.stringify(EXAMPLE)));S.id=newId();save();renderMake();stepsState();toast('예시를 채웠어요');
 };
 $('toVote').onclick=function(){
   if(S.m.length<2){$('mkErr').textContent='함께 가는 사람을 2명 이상 넣어 주세요.';return;}
@@ -386,19 +473,31 @@ $('rateBack').onclick=showWho;
 $('rateDone').onclick=function(){
   var empty=draft.filter(function(r){return r<0;}).length;
   if(empty&&!confirm('고르지 않은 '+empty+'곳은 「상관없어요」로 할게요. 괜찮을까요?'))return;
-  S.votes[who]=draft.map(function(r){return r<0?0:r;}); save();
+  S.votes[who]=draft.map(function(r){return r<0?0:r;}); S.vt[who]=Date.now(); save();
   var left=S.m.filter(function(m){return !Array.isArray(S.votes[m]);});
   $('afterTitle').textContent=who+'님 투표 완료!'+(left.length?' 남은 사람: '+left.join(', '):' 모두 투표했어요');
   ['pickWho','rating','afterVote'].forEach(function(id){$(id).classList.toggle('hidden',id!=='afterVote');});
-  $('nextLink').classList.toggle('hidden',!left.length); $('nextHere').classList.toggle('hidden',!left.length);
+  $('nextHere').classList.toggle('hidden',!left.length);
   $('seeCourse').textContent=left.length?'지금까지로 코스 보기':'코스 보기';
   stepsState(); window.scrollTo(0,0);
 };
-$('nextLink').onclick=function(){copy(link(),'링크를 복사했어요. 단톡방에 붙여 넣어 주세요');};
+$('nextLink').onclick=function(){copy(link(),'내 투표 링크를 복사했어요. 단톡방에 붙여 넣어 주세요');};
 $('nextHere').onclick=showWho;
 $('seeCourse').onclick=function(){go('result');};
 $('shareVote').onclick=function(){copy(link(),'투표 링크를 복사했어요');};
 $('toResult').onclick=function(){go('result');};
+$('mergeBtn').onclick=function(){
+  var txt=$('mergeIn').value, ms=txt.match(/#d=[A-Za-z0-9_-]+/g)||[], names=[], other=0, bad=0;
+  if(!ms.length){toast('붙여 넣은 링크를 찾지 못했어요');return;}
+  ms.forEach(function(h){try{var o=dec(h.slice(3));if(!valid(o)){bad++;return;}fix(o);
+    if(o.id!==S.id&&!isEmpty(S)){other++;return;}
+    var r=takeIn(o,false); if(r.mode==='merge')names=names.concat(r.added);}catch(e){bad++;}});
+  save();$('mergeIn').value='';showWho();stepsState();
+  var msg=names.length?names.filter(function(x,i){return names.indexOf(x)===i;}).join(', ')+'님 투표를 합쳤어요':'새로 합칠 투표가 없어요';
+  if(other)msg+=' · 다른 여행 링크 '+other+'개는 건너뛰었어요';
+  if(bad)msg+=' · 읽지 못한 링크 '+bad+'개';
+  toast(msg);
+};
 
 /* ───── 3 코스 계산 ───── */
 function plan(){
@@ -433,6 +532,7 @@ function plan(){
 var LAST=null;
 function renderResult(){
   var r=LAST=plan();
+  $('demoBar').classList.toggle('hidden',!S.demo);
   $('resTitle').textContent=(S.t?S.t+' · ':'')+'오늘의 코스';
   $('course').innerHTML=r.course.map(function(s,idx){var p=s.p,c=CATS[p.c];var who=p.must.length?p.must:p.like;var why=p.must.length?'꼭 가고 싶은 사람: '+p.must.join(', '):(p.like.length?'좋아요: '+p.like.join(', '):'남는 시간에 들러 보기');
     return '<div class="stop'+(idx===0?' first':'')+'"><div class="bx"><div class="rowtop"><div class="avs">'+who.map(av).join('')+'</div><span class="time">🕙 '+SLOT_TIME[s.k]+' · '+SLOT_NAME[s.k]+'</span></div><span class="tagc" style="background:'+c.c+'">'+c.e+' '+c.n+'</span><div class="pn">'+esc(p.n)+'</div><div class="why">'+esc(why)+'</div></div></div>';}).join('');
@@ -451,11 +551,17 @@ $('copyCourse').onclick=function(){
   copy(L.join('\n'),'코스를 복사했어요. 단톡방에 붙여 넣어 주세요');
 };
 $('backVote').onclick=function(){go('vote');};
-$('restart').onclick=function(){if(!confirm('지금 여행을 지우고 새로 만들까요?'))return;S=blank();save();if(location.hash)history.replaceState(null,'',location.href.split('#')[0]);go('make');};
+$('restart').onclick=function(){if(!S.demo&&!confirm('지금 여행을 지우고 새로 만들까요?'))return;S=blank();save();if(location.hash)history.replaceState(null,'',location.href.split('#')[0]);go('make');};
+$('startNew').onclick=function(){if(S.demo||isEmpty(S))S=blank();save();go('make');};
+$('seeDemo').onclick=function(){S=fix(JSON.parse(JSON.stringify(EXAMPLE)));S.id=newId();S.demo=true;S.votes=JSON.parse(JSON.stringify(EXAMPLE_VOTES));S.m.forEach(function(m,i){S.vt[m]=i+1;});save();go('result');};
+$('demoStart').onclick=function(){S=blank();save();go('make');};
 
 /* 시작 */
-if(fromLink){save();history.replaceState(null,'',location.href.split('#')[0]);go(ready()?'vote':'make');if(ready())toast('친구가 보낸 투표를 불러왔어요');}
-else go(ready()&&voters().length===S.m.length?'result':(ready()?'vote':'make'));
+if(incoming){history.replaceState(null,'',location.href.split('#')[0]);}
+if(incoming&&ready()){go(voters().length===S.m.length?'result':'vote');if(linkNote)toast(linkNote);}
+else if(ready()&&!S.demo){go(voters().length===S.m.length?'result':'vote');}
+else if(!isEmpty(S)&&!S.demo){go('make');}
+else go('intro');
 })();
 </script>
 </body>
