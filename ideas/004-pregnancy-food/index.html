@@ -383,7 +383,6 @@ $('themeBtn').onclick=function(){var r=document.documentElement,n=r.getAttribute
 /* 시작 → 앱 */
 function enter(){put('preg-onb','1');$('onb').classList.add('hidden');$('app').classList.remove('hidden');tab('home');}
 $('go').onclick=enter; $('skip').onclick=enter;
-if(get('preg-onb','')==='1')enter();
 
 /* 탭 */
 function tab(t){
@@ -454,6 +453,9 @@ function wk(){
   $('nut').innerHTML=t.nut.map(function(n,i){return '<div class="it" style="background:'+NUT_BG[i%3]+'"><div class="h"><span class="mascot" style="--mc:'+NUT_MC[i%3]+'">'+n.e+'</span><span><b>'+esc(n.n)+'</b><small>'+esc(n.s)+'</small></span></div><p>'+esc(n.p)+'</p><div class="foods">'+n.f.map(function(x){return '<span>'+esc(x)+'</span>';}).join('')+'</div></div>';}).join('');
 }
 $('wkR').addEventListener('input',function(){week=+this.value;put('preg-week',String(week));wk();});
+
+/* 시작: 한 번 본 사람은 바로 홈으로 (모든 준비가 끝난 뒤 실행) */
+if(get('preg-onb','')==='1')enter();
 })();
 </script>
 </body>
