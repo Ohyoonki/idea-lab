@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>임신 중에 이거 먹어도 돼? · 아이디어 제작소</title>
+<meta name="description" content="임신 중 먹어도 되는 음식과 피해야 할 음식을 바로 검색하고, 주차별 챙길 영양소와 기초 정보를 확인해요.">
+<link rel="icon" href="../../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<style>
+:root{
+  --bg:#f7f1ee; --ink:#1d1a1c; --ink-2:#8a8186; --card:#ffffff; --soft:#f6f0ed; --line:#ece2dd; --line2:#dccfc9;
+  --acc:#e2657a; --acc-2:#f3a3ae; --acc-soft:rgba(226,101,122,.10);
+  --ok:#2f9e6b; --ok-soft:#e3f5ec; --care:#d98a1c; --care-soft:#fdf1dc; --no:#d94141; --no-soft:#fde4e4;
+  --shadow:0 12px 30px rgba(90,40,50,.08); --shadow-2:0 18px 40px rgba(226,101,122,.28);
+  --sans:"Noto Sans KR","Pretendard","Malgun Gothic",system-ui,sans-serif; color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#110e10; --ink:#f5eff1; --ink-2:#9e9398; --card:#1b1719; --soft:#241f22; --line:#2e282b; --line2:#3b3438;
+  --acc:#ef7c8f; --acc-2:#f3a3ae; --acc-soft:rgba(239,124,143,.15);
+  --ok-soft:#173326; --care-soft:#33270f; --no-soft:#361819; --shadow:none; --shadow-2:0 18px 40px rgba(0,0,0,.45); color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;background:var(--bg)}
+body{background:radial-gradient(120% 60% at 80% 0%,rgba(255,255,255,.75),transparent 60%),var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:calc(120px + env(safe-area-inset-bottom));min-height:100vh}
+:root[data-theme="dark"] body{background:var(--bg)}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px}
+.hidden{display:none!important}
+
+.top{padding:14px 0 6px}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.back{display:flex;align-items:center;gap:12px;text-decoration:none}
+.back img{width:52px;height:52px;border-radius:50%;border:3px solid var(--card);box-shadow:var(--shadow)}
+.back b{display:block;font-size:16px;letter-spacing:-.02em}
+.back small{display:block;font-size:13px;color:var(--acc);font-weight:700}
+.theme{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;display:grid;place-items:center;font-size:20px;line-height:1;box-shadow:var(--shadow)}
+.theme .sun{display:none}
+:root[data-theme="dark"] .theme .sun{display:block}
+:root[data-theme="dark"] .theme .moon{display:none}
+
+.head{padding:16px 0 14px}
+h1{font-size:clamp(30px,8.4vw,42px);line-height:1.15;letter-spacing:-.045em;font-weight:800}
+h1 span{color:var(--ink-2);font-weight:700}
+.lead{color:var(--ink-2);font-size:15px;margin-top:8px}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:30px;padding:20px;box-shadow:var(--shadow)}
+.sec-h{font-size:18px;letter-spacing:-.03em;margin:24px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sec-h small{font-size:12px;color:var(--ink-2);font-weight:700}
+.note{font-size:12.5px;color:var(--ink-2);margin-top:14px;line-height:1.6}
+
+/* 검색 */
+.search{position:relative}
+.search input{width:100%;border:2px solid var(--line);border-radius:999px;padding:16px 52px 16px 52px;background:var(--card);font-size:17px;box-shadow:var(--shadow)}
+.search input:focus{outline:none;border-color:var(--acc)}
+.search .ic{position:absolute;left:20px;top:50%;transform:translateY(-50%);font-size:20px}
+.search .clr{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:0;background:var(--soft);cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:700;cursor:pointer}
+.filters{display:flex;gap:6px;margin:4px 0 12px}
+.filters button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 6px;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap}
+.filters button.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+
+/* 결과 카드 */
+.answer{position:relative;padding-top:24px;margin-top:16px}
+.answer::before,.answer::after{content:"";position:absolute;left:10%;right:10%;top:0;height:70px;border-radius:30px;opacity:.35;background:var(--c)}
+.answer::after{left:5%;right:5%;top:11px;opacity:.6}
+.answer .in{position:relative;z-index:1;background:var(--c);color:#fff;border-radius:32px;padding:22px 22px 24px;box-shadow:0 18px 40px rgba(0,0,0,.14)}
+.answer .lv{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.25);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:900}
+.answer .fn{font-size:34px;font-weight:900;letter-spacing:-.045em;line-height:1.15;margin:12px 0 8px}
+.answer .why{font-size:15px;line-height:1.55;opacity:.95}
+.answer .tip{margin-top:14px;background:rgba(255,255,255,.95);color:#1d1a1c;border-radius:20px;padding:14px 16px;font-size:14px;line-height:1.55}
+.answer .tip b{display:block;margin-bottom:2px}
+.answer .src{font-size:12px;opacity:.85;margin-top:10px}
+.list{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px 14px;cursor:pointer;text-align:left;width:100%;box-shadow:var(--shadow)}
+.row .dot{flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:20px}
+.row b{display:block;font-size:16px}
+.row small{display:block;font-size:12.5px;color:var(--ink-2);margin-top:1px}
+.row .tag{margin-left:auto;flex:0 0 auto;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900}
+.t-ok{background:var(--ok-soft);color:var(--ok)}.t-care{background:var(--care-soft);color:var(--care)}.t-no{background:var(--no-soft);color:var(--no)}
+.none{background:var(--card);border:1px dashed var(--line2);border-radius:24px;padding:20px;text-align:center}
+.none b{display:block;font-size:16px;margin-bottom:6px}
+.none p{font-size:14px;color:var(--ink-2)}
+
+/* 주차 */
+.wk{text-align:center}
+.wk .num{font-size:56px;font-weight:900;letter-spacing:-.05em;line-height:1;color:var(--acc)}
+.wk .num small{font-size:20px;color:var(--ink-2);margin-left:4px}
+.wk .tri{display:inline-block;margin-top:8px;background:var(--acc-soft);color:var(--acc);border-radius:999px;padding:5px 14px;font-weight:900;font-size:14px}
+input[type=range]{width:100%;margin:18px 0 6px;accent-color:var(--acc);height:28px}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-2);font-weight:700}
+.nut{display:flex;flex-direction:column;gap:10px}
+.nut .it{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:16px 18px;box-shadow:var(--shadow)}
+.nut .it .h{display:flex;align-items:center;gap:10px}
+.nut .it .h i{flex:0 0 44px;height:44px;border-radius:50%;background:var(--acc-soft);display:grid;place-items:center;font-style:normal;font-size:22px}
+.nut .it .h b{font-size:17px}
+.nut .it .h small{display:block;font-size:12.5px;color:var(--ink-2);font-weight:700}
+.nut .it p{font-size:14px;margin-top:8px}
+.foods{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.foods span{background:var(--soft);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:700}
+.body-c{background:var(--soft);border-radius:22px;padding:14px 16px;font-size:14px;margin-top:10px}
+.body-c b{display:block;margin-bottom:2px}
+
+/* 정보 */
+.alert{background:var(--no-soft);border:1px solid rgba(217,65,65,.25);border-radius:26px;padding:18px 20px}
+.alert b{display:block;color:var(--no);font-size:17px;margin-bottom:8px}
+.alert li{margin:6px 0 0 18px;font-size:14.5px;font-weight:700}
+.info{display:flex;flex-direction:column;gap:10px}
+.info .it{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:16px 18px;box-shadow:var(--shadow)}
+.info .it b{display:flex;align-items:center;gap:8px;font-size:16px}
+.info .it ul{margin-top:6px}
+.info .it li{margin:5px 0 0 18px;font-size:14px}
+.disc{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px;font-size:12.5px;color:var(--ink-2);line-height:1.65}
+.disc b{color:var(--ink)}
+
+/* 하단 내비 */
+.steps{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom));z-index:20;display:flex;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px;box-shadow:0 16px 40px rgba(60,20,30,.16)}
+.steps button{display:flex;align-items:center;gap:8px;white-space:nowrap;flex:0 0 auto;height:56px;min-width:56px;padding:0 16px;border-radius:999px;border:0;background:var(--soft);cursor:pointer;font-weight:800;font-size:15px;justify-content:center}
+.steps button i{font-style:normal;font-size:20px}
+.steps button span{display:none}
+.steps button.on{background:var(--acc);color:#fff;padding:0 22px}
+.steps button.on span{display:inline}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rise{animation:rise .22s ease}
+@media (prefers-reduced-motion:reduce){.rise{animation:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <a class="back" href="../../index.html"><img src="../../assets/favicon.png" alt=""><span><b>아이디어 제작소</b><small>No.004 · 임신 중 음식</small></span></a>
+  <button class="theme" id="themeBtn" type="button" aria-label="화면 모드 바꾸기"><span class="moon">🌙</span><span class="sun">☀️</span></button>
+</div></div>
+
+<main class="wrap">
+  <div class="head">
+    <h1>임신 중에<br><span>이거 먹어도 돼?</span></h1>
+    <p class="lead">음식 이름만 치면 바로 알려 드려요.</p>
+  </div>
+
+  <!-- 1 검색 -->
+  <section id="food">
+    <div class="search"><span class="ic">🔍</span><input id="q" type="search" placeholder="예: 회, 커피, 참치, 치즈" autocomplete="off" aria-label="음식 검색"><button class="clr hidden" id="clr" type="button" aria-label="지우기">✕</button></div>
+    <div class="chips" id="hot"></div>
+    <div id="answer"></div>
+    <h3 class="sec-h"><span id="listTitle">전체 음식</span><small id="listCnt"></small></h3>
+    <div class="filters" id="filters"></div>
+    <div class="list" id="list"></div>
+  </section>
+
+  <!-- 2 주차 -->
+  <section id="week" class="hidden">
+    <div class="panel wk">
+      <div class="num" id="wkNum">12<small>주</small></div>
+      <span class="tri" id="wkTri"></span>
+      <input type="range" id="wkR" min="4" max="40" value="12" aria-label="임신 주차">
+      <div class="ticks"><span>4주</span><span>14주</span><span>28주</span><span>40주</span></div>
+    </div>
+    <div class="body-c" id="wkBody"></div>
+    <h3 class="sec-h">이 시기에 챙길 영양</h3>
+    <div class="nut" id="nut"></div>
+    <p class="note">영양제의 종류와 양은 사람마다 달라요. 꼭 담당 의사 · 약사와 상의해 주세요.</p>
+  </section>
+
+  <!-- 3 정보 -->
+  <section id="info" class="hidden">
+    <div class="alert">
+      <b>🚨 이럴 땐 바로 병원에 연락해요</b>
+      <ul>
+        <li>질 출혈이 있을 때</li>
+        <li>심한 복통이나 배 뭉침이 계속될 때</li>
+        <li>물 같은 분비물(양수)이 흐를 때</li>
+        <li>태동이 평소보다 확 줄었을 때</li>
+        <li>심한 두통, 눈앞이 흐려 보일 때, 갑자기 붓는 증상</li>
+        <li>열이 나거나 심하게 토해서 먹지 못할 때</li>
+      </ul>
+    </div>
+    <h3 class="sec-h">예비 엄마 · 아빠를 위한 기본</h3>
+    <div class="info">
+      <div class="it"><b>🏥 정기 검진</b><ul><li>병원에서 안내하는 일정대로 검진을 받아요.</li><li>궁금한 점은 메모해 두었다가 검진 때 물어봐요.</li></ul></div>
+      <div class="it"><b>💊 약 · 영양제</b><ul><li>감기약, 진통제, 한약, 건강기능식품도 먹기 전에 의사 · 약사에게 확인해요.</li><li>복용 중인 약이 있다면 임신 사실을 꼭 알려요.</li></ul></div>
+      <div class="it"><b>🧼 음식 안전 습관</b><ul><li>고기 · 생선 · 달걀은 속까지 완전히 익혀 먹어요.</li><li>채소 · 과일은 깨끗이 씻고, 남은 음식은 다시 뜨겁게 데워요.</li><li>날고기를 만진 손과 도마는 바로 씻어요.</li></ul></div>
+      <div class="it"><b>👨 예비 아빠가 할 수 있는 일</b><ul><li>입덧할 때 냄새 나는 요리는 대신 맡아요.</li><li>검진에 같이 가고, 금연 · 금주를 함께해요.</li><li>무거운 짐 들기, 화장실 · 욕실 청소는 아빠 몫으로.</li><li>「뭐 먹고 싶어?」보다 「이거 먹어도 되는지 찾아볼게」</li></ul></div>
+      <div class="it"><b>📄 지원 제도</b><ul><li>임신 · 출산 진료비 지원, 보건소 영양제 지원 등이 있어요.</li><li>금액과 조건은 바뀔 수 있어서 <b>정부24 · 국민건강보험공단 · 가까운 보건소</b>에서 확인해요.</li></ul></div>
+    </div>
+  </section>
+
+  <div class="disc">
+    <b>⚠️ 꼭 읽어 주세요</b><br>
+    이 서비스는 일반적인 정보를 정리한 <b>참고용</b>이에요. 몸 상태, 임신 경과, 알레르기에 따라 달라질 수 있으니 개인 상황은 <b>담당 의사 · 약사와 상의</b>해 주세요.<br>
+    참고: 식품의약품안전처 임신부 생선 · 카페인 섭취 안내, 영국 NHS 임신 중 음식 안내 등 · 입력한 내용은 저장 · 전송되지 않아요.
+  </div>
+</main>
+
+<nav class="steps" id="steps" aria-label="메뉴">
+  <button data-s="food" class="on"><i>🔍</i><span>음식 검색</span></button>
+  <button data-s="week"><i>🗓️</i><span>주차별 영양</span></button>
+  <button data-s="info"><i>📋</i><span>기초 정보</span></button>
+</nav>
+
+<script>
+(function(){
+'use strict';
+/* l: ok=괜찮아요, care=조심해요, no=피해요 · a: 다른 이름(검색용) */
+var FOODS=[
+ /* 피해요 */
+ {n:'술',e:'🍺',l:'no',a:'맥주 소주 와인 막걸리 알코올 음주',w:'임신 중에는 안전한 술의 양이 정해져 있지 않아요. 태아 발달에 영향을 줄 수 있어요.',t:'술은 종류와 양에 상관없이 피하는 게 가장 안전해요.'},
+ {n:'회 · 초밥(날생선)',e:'🍣',l:'no',a:'회 생선회 초밥 스시 날생선 물회 연어회 육사시미',w:'익히지 않은 생선은 식중독균(리스테리아 등)이나 기생충 위험이 있어요.',t:'초밥이 먹고 싶다면 익힌 장어 · 새우 초밥, 유부초밥처럼 익힌 재료로 골라요.'},
+ {n:'생굴 · 날조개',e:'🦪',l:'no',a:'굴 생굴 조개 날조개 석화 해산물',w:'날 어패류는 식중독 위험이 커요.',t:'굴국밥, 조개탕처럼 완전히 익혀 먹으면 괜찮아요.'},
+ {n:'육회 · 덜 익힌 고기',e:'🥩',l:'no',a:'육회 레어 스테이크 미디엄 덜익은고기 육사시미 타르타르',w:'덜 익힌 고기는 톡소플라스마 같은 감염 위험이 있어요.',t:'고기는 속까지 분홍빛 · 핏기가 없도록 완전히 익혀요.'},
+ {n:'날달걀 · 반숙',e:'🥚',l:'no',a:'날계란 반숙 수란 계란 달걀 마요네즈수제 티라미수',w:'덜 익힌 달걀은 살모넬라균 위험이 있어요.',t:'노른자까지 단단하게 익혀 먹어요. 시판 마요네즈는 살균 제품이라 괜찮아요.'},
+ {n:'간 · 간 요리',e:'🫀',l:'no',a:'간 순대간 소간 닭간 간요리 푸아그라 파테',w:'간에는 비타민 A가 매우 많아요. 너무 많은 비타민 A는 태아에게 해로울 수 있어요.',t:'비타민 A가 든 영양제도 의사와 상의 후 먹어요.'},
+ {n:'연성 치즈(브리 · 카망베르)',e:'🧀',l:'no',a:'브리 카망베르 블루치즈 고르곤졸라 연성치즈 염소치즈',w:'곰팡이로 숙성한 부드러운 치즈와 블루치즈는 리스테리아균이 자라기 쉬워요.',t:'뜨겁게 익혀서 먹으면 괜찮아요. 체다 · 모짜렐라 같은 살균 치즈는 괜찮아요.'},
+ {n:'살균 안 한 우유',e:'🥛',l:'no',a:'생우유 비살균 원유 목장우유',w:'살균하지 않은 우유와 그 우유로 만든 제품은 식중독균 위험이 있어요.',t:'마트 우유(살균 · 멸균 표시)는 괜찮아요.'},
+ {n:'생햄 · 살라미',e:'🥓',l:'no',a:'하몽 프로슈토 살라미 생햄 초리조 염장햄',w:'익히지 않고 말리거나 절인 고기는 감염 위험이 있어요.',t:'피자 위 살라미처럼 뜨겁게 익히면 괜찮아요.'},
+ {n:'황새치 · 상어',e:'🦈',l:'no',a:'황새치 상어 메카 새치',w:'몸집이 큰 포식성 생선은 수은이 많을 수 있어요.',t:'수은이 적은 고등어 · 연어 · 꽁치 같은 생선을 익혀 먹어요.'},
+ {n:'에너지 음료',e:'⚡',l:'no',a:'에너지드링크 핫식스 레드불 몬스터',w:'카페인이 많고 다른 각성 성분이 함께 들어 있는 경우가 많아요.',t:'피곤할 땐 물이나 디카페인 음료로 바꿔 봐요.'},
+ /* 조심해요 */
+ {n:'커피',e:'☕',l:'care',a:'아메리카노 라떼 카페라떼 에스프레소 커피 믹스커피 콜드브루',w:'카페인은 하루 300mg 이하로 줄이는 게 좋아요(식약처 임신부 권고).',t:'커피 전문점 큰 컵은 한 잔에 카페인이 많을 수 있어요. 하루 1~2잔 이하로, 디카페인도 좋아요.'},
+ {n:'녹차 · 홍차',e:'🍵',l:'care',a:'녹차 홍차 밀크티 말차 보이차 차',w:'차에도 카페인이 있어요. 커피와 합쳐서 하루 카페인 양을 생각해요.',t:'보리차 · 옥수수차처럼 카페인 없는 차로 바꿔도 좋아요.'},
+ {n:'콜라 · 초콜릿',e:'🍫',l:'care',a:'콜라 초콜릿 코코아 탄산 사이다',w:'콜라와 초콜릿에도 카페인이 들어 있고, 당분이 많아요.',t:'조금은 괜찮지만 커피와 함께 먹는 날은 양을 줄여요.'},
+ {n:'참치 회 · 참치 스테이크',e:'🐟',l:'care',a:'참치 참치회 다랑어 참다랑어 참치스테이크',w:'다랑어류는 수은이 많은 편이라 식약처는 임신부에게 일주일 100g 이하를 권해요.',t:'회는 날생선이라 피하고, 익혀서 일주일 100g 이하로 먹어요.'},
+ {n:'참치 통조림',e:'🥫',l:'care',a:'참치캔 참치통조림 참치김밥 참치마요',w:'수은 때문에 양을 조절하는 게 좋아요. 일반 생선과 합쳐 일주일 양을 생각해요.',t:'다른 생선과 번갈아 먹고, 한 번에 많이 먹지 않아요. 정확한 양은 식약처 안내를 확인해요.'},
+ {n:'인삼 · 홍삼',e:'🌿',l:'care',a:'인삼 홍삼 홍삼정 삼계탕인삼 건강즙',w:'임신 중 안전성에 대한 근거가 충분하지 않아요.',t:'건강기능식품은 먹기 전에 의사와 상의해요.'},
+ {n:'허브차',e:'🌼',l:'care',a:'허브티 캐모마일 페퍼민트 루이보스 허브차',w:'허브 종류에 따라 임신 중 피하는 것이 있어요.',t:'익숙한 차라도 종류를 확인하고, 걱정되면 의사에게 물어봐요.'},
+ {n:'무알코올 맥주',e:'🍻',l:'care',a:'무알콜 무알코올 논알콜 비알코올 맥주',w:'「비알코올」 제품은 알코올이 아주 조금 들어 있을 수 있어요.',t:'표시를 확인하고, 「무알코올(0.00%)」 제품을 고르는 게 안전해요.'},
+ {n:'라면 · 짠 음식',e:'🍜',l:'care',a:'라면 짬뽕 젓갈 찌개 짠음식 나트륨 컵라면',w:'짠 음식은 몸이 붓고 혈압 관리에 좋지 않아요.',t:'국물은 덜 먹고, 가끔 먹는 정도로 조절해요.'},
+ {n:'떡볶이 · 매운 음식',e:'🌶️',l:'care',a:'떡볶이 매운음식 마라탕 불닭 엽떡',w:'먹어도 되지만 속쓰림이 심해지거나 짠 경우가 많아요.',t:'속이 편한 날, 덜 맵게 먹어요.'},
+ {n:'건강기능식품 · 다이어트 보조제',e:'💊',l:'care',a:'영양제 보조제 다이어트 비타민A 효소 한약',w:'성분에 따라 임신 중 피해야 하는 것이 있어요.',t:'임신 중 먹는 모든 약과 보조제는 의사 · 약사와 상의해요.'},
+ {n:'김밥 · 샌드위치(밖에서 산 것)',e:'🍙',l:'care',a:'김밥 샌드위치 편의점 도시락 샐러드',w:'재료에 따라 달라요. 날재료나 오래 상온에 둔 음식은 식중독 위험이 있어요.',t:'바로 만든 것, 익힌 재료로 된 것을 골라요.'},
+ {n:'훈제 연어',e:'🍱',l:'care',a:'훈제연어 연어샐러드 스모크연어',w:'차갑게 먹는 훈제 연어는 리스테리아 위험이 있어요.',t:'파스타 · 그라탕처럼 뜨겁게 익히면 괜찮아요.'},
+ /* 괜찮아요 */
+ {n:'익힌 생선(고등어 · 연어 · 꽁치)',e:'🐟',l:'ok',a:'고등어 연어구이 꽁치 갈치 조기 생선구이 생선 연어',w:'단백질과 오메가-3가 풍부해요. 수은이 적은 생선을 고르면 좋아요.',t:'완전히 익혀서, 여러 종류를 번갈아 먹어요.'},
+ {n:'완전히 익힌 달걀',e:'🍳',l:'ok',a:'삶은달걀 계란후라이 완숙 달걀찜 계란말이',w:'좋은 단백질 공급원이에요.',t:'노른자까지 단단하게 익혀요.'},
+ {n:'우유 · 요거트',e:'🥛',l:'ok',a:'우유 요거트 요구르트 두유 플레인요거트',w:'칼슘과 단백질을 채우기 좋아요.',t:'살균 · 멸균 제품으로, 단 요거트는 당을 확인해요.'},
+ {n:'체다 · 모짜렐라 치즈',e:'🧀',l:'ok',a:'체다 모짜렐라 슬라이스치즈 피자치즈 파마산 치즈',w:'살균 우유로 만든 단단한 치즈는 괜찮아요.',t:'짠 편이니 양은 적당히요.'},
+ {n:'익힌 소고기 · 돼지고기 · 닭고기',e:'🍗',l:'ok',a:'소고기 돼지고기 닭고기 불고기 삼겹살 삼계탕 치킨 고기',w:'단백질과 철분(특히 붉은 고기)을 채울 수 있어요.',t:'속까지 완전히 익혀요. 튀김은 가끔만.'},
+ {n:'두부 · 콩',e:'🫘',l:'ok',a:'두부 콩 두유 된장 청국장 콩국수',w:'단백질과 여러 영양소가 풍부해요.',t:'된장 · 청국장은 짠 편이니 양 조절해요.'},
+ {n:'미역국',e:'🥣',l:'ok',a:'미역 미역국 다시마 해조류 김',w:'평소 먹는 양이면 괜찮아요.',t:'미역 · 다시마는 요오드가 많아 너무 자주 많이 먹지는 않아요.'},
+ {n:'시금치 · 브로콜리 · 채소',e:'🥦',l:'ok',a:'시금치 브로콜리 채소 나물 양배추 당근 샐러드채소',w:'엽산과 식이섬유가 풍부해요.',t:'깨끗이 씻어서 먹어요.'},
+ {n:'과일(바나나 · 키위 · 딸기 등)',e:'🍓',l:'ok',a:'과일 바나나 키위 딸기 사과 귤 오렌지 포도 수박 감 망고 복숭아 배',w:'비타민과 식이섬유를 채울 수 있어요.',t:'잘 씻어 먹고, 당이 많으니 한 번에 너무 많이는 피해요.'},
+ {n:'파인애플',e:'🍍',l:'ok',a:'파인애플',w:'「먹으면 안 된다」는 말이 있지만, 보통 먹는 양은 괜찮다고 알려져 있어요.',t:'신맛 때문에 속이 쓰리면 양을 줄여요.'},
+ {n:'고구마 · 현미 · 잡곡',e:'🍠',l:'ok',a:'고구마 현미 잡곡 귀리 오트밀 감자 밥',w:'식이섬유가 많아 임신 중 변비에 도움이 돼요.',t:'물과 함께 충분히 먹어요.'},
+ {n:'견과류',e:'🥜',l:'ok',a:'견과류 아몬드 호두 땅콩 캐슈넛',w:'좋은 지방과 영양소가 있어요.',t:'알레르기가 없다면 한 줌 정도로.'},
+ {n:'디카페인 커피',e:'☕',l:'ok',a:'디카페인 디카페인커피 디카페 카페인없는',w:'카페인을 거의 뺀 커피예요. 카페인이 아주 조금은 남아 있어요.',t:'하루 1~2잔 정도는 괜찮아요.'},
+ {n:'보리차 · 옥수수차',e:'🫖',l:'ok',a:'보리차 옥수수차 둥굴레차 물',w:'카페인이 없어 편하게 마실 수 있어요.',t:'물을 충분히 마시는 게 좋아요.'},
+ {n:'익힌 해산물(새우 · 오징어 · 게)',e:'🦐',l:'ok',a:'새우 오징어 꽃게 게 문어 낙지 해물 해산물',w:'완전히 익히면 단백질을 채우기 좋아요.',t:'날것 · 덜 익힌 것은 피해요.'},
+ {n:'김치',e:'🥬',l:'ok',a:'김치 깍두기 장아찌',w:'먹어도 되지만 짠 편이에요.',t:'짠맛이 강한 날은 양을 줄여요.'}
+];
+var HOT=['커피','회','참치','치즈','달걀','술','파인애플','미역국','라면','인삼'];
+var LV={ok:{n:'괜찮아요',c:'#2f9e6b',d:'🟢',cl:'t-ok'},care:{n:'조심해요',c:'#d98a1c',d:'🟡',cl:'t-care'},no:{n:'피해요',c:'#d94141',d:'🔴',cl:'t-no'}};
+var TRI=[
+ {to:13,n:'임신 초기 (~13주)',body:'<b>몸의 변화</b>입덧, 피로, 잦은 소변이 흔해요. 조금씩 자주 먹는 게 편할 수 있어요.',nut:[
+   {e:'🥬',n:'엽산',s:'아기 신경관 발달에 중요',p:'임신 전부터 임신 초기까지 엽산 영양제를 챙기라고 권하는 경우가 많아요. 양은 의사와 상의해요.',f:['시금치','브로콜리','콩','달걀','오렌지']},
+   {e:'💧',n:'수분',s:'입덧으로 부족해지기 쉬워요',p:'토를 많이 했다면 물을 조금씩 자주 마셔요. 물도 못 넘길 정도면 병원에 연락해요.',f:['물','보리차','수분 많은 과일']},
+   {e:'🍞',n:'부담 없는 탄수화물',s:'속이 비면 입덧이 심해져요',p:'크래커, 밥, 고구마처럼 냄새가 덜한 음식을 조금씩 먹어요.',f:['크래커','밥','고구마','바나나']}]},
+ {to:27,n:'임신 중기 (14~27주)',body:'<b>몸의 변화</b>입덧이 줄고 배가 나오기 시작해요. 아기가 빠르게 자라는 시기예요.',nut:[
+   {e:'🩸',n:'철분',s:'혈액량이 늘어나요',p:'철분제는 보통 이 무렵부터 병원 안내에 따라 먹어요. 비타민 C와 함께 먹으면 흡수가 잘 돼요.',f:['소고기','시금치','콩','달걀노른자']},
+   {e:'🦴',n:'칼슘',s:'아기 뼈와 이 발달',p:'우유, 요거트, 두부로 매일 챙겨요.',f:['우유','요거트','두부','멸치']},
+   {e:'🐟',n:'오메가-3 (DHA)',s:'아기 뇌와 눈 발달',p:'수은이 적은 생선을 익혀서 먹어요.',f:['고등어','연어','꽁치']}]},
+ {to:40,n:'임신 후기 (28주~)',body:'<b>몸의 변화</b>배가 무거워지고 속쓰림, 변비, 부종이 생기기 쉬워요. 출산 준비를 시작해요.',nut:[
+   {e:'🩸',n:'철분 · 단백질',s:'출산을 대비해요',p:'철분제는 의사 안내대로 계속 먹고, 고기 · 생선 · 달걀로 단백질을 채워요.',f:['소고기','닭고기','달걀','생선']},
+   {e:'🌾',n:'식이섬유',s:'변비 예방',p:'잡곡, 채소, 과일과 물을 충분히 먹어요.',f:['현미','고구마','채소','키위']},
+   {e:'🧂',n:'짠 음식 줄이기',s:'붓기 · 혈압 관리',p:'국물, 젓갈, 라면은 줄이고 갑자기 많이 부으면 병원에 알려요.',f:['싱겁게 먹기','물 충분히']}]}
+];
+
+function $(id){return document.getElementById(id);}
+function each(l,f){Array.prototype.forEach.call(l,f);}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function norm(s){return String(s).replace(/\s+/g,'').toLowerCase();}
+$('themeBtn').onclick=function(){var r=document.documentElement,n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}};
+
+/* 화면 전환 */
+each($('steps').children,function(b){b.onclick=function(){var s=b.getAttribute('data-s');
+  ['food','week','info'].forEach(function(id){$(id).classList.toggle('hidden',id!==s);});
+  each($('steps').children,function(x){x.classList.toggle('on',x===b);});window.scrollTo(0,0);};});
+
+/* 검색 */
+var flt='all';
+function match(q){q=norm(q);if(!q)return [];return FOODS.filter(function(f){return norm(f.n+' '+f.a).indexOf(q)>=0;});}
+function answerHTML(f){var v=LV[f.l];
+  return '<div class="answer rise" style="--c:'+v.c+'"><div class="in"><span class="lv">'+v.d+' '+v.n+'</span><div class="fn">'+f.e+' '+esc(f.n)+'</div><div class="why">'+esc(f.w)+'</div><div class="tip"><b>💡 이렇게 해요</b>'+esc(f.t)+'</div><div class="src">참고용 정보예요 · 개인 상황은 담당 의사와 상의해요</div></div></div>';}
+function rowHTML(f){var v=LV[f.l];return '<button type="button" class="row" data-n="'+esc(f.n)+'"><span class="dot '+v.cl+'">'+f.e+'</span><span><b>'+esc(f.n)+'</b><small>'+esc(f.w.length>34?f.w.slice(0,34)+'…':f.w)+'</small></span><span class="tag '+v.cl+'">'+v.n+'</span></button>';}
+function show(name){var f=FOODS.filter(function(x){return x.n===name;})[0];if(!f)return;$('answer').innerHTML=answerHTML(f);$('answer').scrollIntoView({behavior:'smooth',block:'start'});}
+function render(){
+  var q=$('q').value.trim(), hits=q?match(q):FOODS;
+  $('clr').classList.toggle('hidden',!q);
+  if(q){
+    var nq=norm(q), byName=hits.filter(function(f){return norm(f.n).indexOf(nq)>=0;});
+    if(hits.length)$('answer').innerHTML=answerHTML(byName[0]||hits[0]);
+    else $('answer').innerHTML='<div class="none rise"><b>🤔 「'+esc(q)+'」은(는) 아직 목록에 없어요</b><p>다른 이름으로 검색해 보거나, 담당 의사 · 약사에게 확인해 주세요.<br>궁금한 음식을 DM으로 알려 주시면 추가할게요!</p></div>';
+  }else $('answer').innerHTML='';
+  var list=hits.filter(function(f){return flt==='all'||f.l===flt;});
+  $('listTitle').textContent=q?'검색 결과':'전체 음식';
+  $('listCnt').textContent=list.length+'개';
+  $('list').innerHTML=list.map(rowHTML).join('');
+  each($('list').children,function(b){b.onclick=function(){show(b.getAttribute('data-n'));};});
+  $('filters').innerHTML=[['all','전체'],['no','🔴 피해요'],['care','🟡 조심해요'],['ok','🟢 괜찮아요']].map(function(x){return '<button type="button" data-f="'+x[0]+'" class="'+(x[0]===flt?'on':'')+'">'+x[1]+'</button>';}).join('');
+  each($('filters').children,function(b){b.onclick=function(){flt=b.getAttribute('data-f');render();};});
+}
+$('q').addEventListener('input',render);
+$('clr').onclick=function(){$('q').value='';render();$('q').focus();};
+$('hot').innerHTML=HOT.map(function(h){return '<button type="button">'+esc(h)+'</button>';}).join('');
+each($('hot').children,function(b){b.onclick=function(){$('q').value=b.textContent;render();var h=match(b.textContent);if(h.length>1)show(h[0].n);};});
+
+/* 주차 */
+function wk(){
+  var w=+$('wkR').value, t=TRI.filter(function(x){return w<=x.to;})[0];
+  $('wkNum').innerHTML=w+'<small>주</small>'; $('wkTri').textContent=t.n; $('wkBody').innerHTML=t.body;
+  $('nut').innerHTML=t.nut.map(function(n){return '<div class="it"><div class="h"><i>'+n.e+'</i><span><b>'+esc(n.n)+'</b><small>'+esc(n.s)+'</small></span></div><p>'+esc(n.p)+'</p><div class="foods">'+n.f.map(function(x){return '<span>'+esc(x)+'</span>';}).join('')+'</div></div>';}).join('');
+}
+$('wkR').addEventListener('input',wk);
+
+render(); wk();
+})();
+</script>
+</body>
+</html>
